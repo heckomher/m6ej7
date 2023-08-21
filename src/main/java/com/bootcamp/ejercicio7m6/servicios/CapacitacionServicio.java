@@ -1,8 +1,8 @@
-package com.bootcamp.ejercicio7m6.service;
+package com.bootcamp.ejercicio7m6.servicios;
 
-import com.bootcamp.ejercicio7m6.domain.Capacitacion;
-import com.bootcamp.ejercicio7m6.model.CapacitacionDTO;
-import com.bootcamp.ejercicio7m6.repos.CapacitacionRepository;
+import com.bootcamp.ejercicio7m6.entidades.Capacitacion;
+import com.bootcamp.ejercicio7m6.modelos.CapacitacionDTO;
+import com.bootcamp.ejercicio7m6.repos.ICapacitacionRepositorio;
 import com.bootcamp.ejercicio7m6.util.NotFoundException;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -10,23 +10,23 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class CapacitacionService {
+public class CapacitacionServicio {
 
-    private final CapacitacionRepository capacitacionRepository;
+    private final ICapacitacionRepositorio ICapacitacionRepositorio;
 
-    public CapacitacionService(final CapacitacionRepository capacitacionRepository) {
-        this.capacitacionRepository = capacitacionRepository;
+    public CapacitacionServicio(final ICapacitacionRepositorio ICapacitacionRepositorio) {
+        this.ICapacitacionRepositorio = ICapacitacionRepositorio;
     }
 
     public List<CapacitacionDTO> findAll() {
-        final List<Capacitacion> capacitacions = capacitacionRepository.findAll(Sort.by("numCapacitacion"));
+        final List<Capacitacion> capacitacions = ICapacitacionRepositorio.findAll(Sort.by("numCapacitacion"));
         return capacitacions.stream()
                 .map(capacitacion -> mapToDTO(capacitacion, new CapacitacionDTO()))
                 .toList();
     }
 
     public CapacitacionDTO get(final Integer numCapacitacion) {
-        return capacitacionRepository.findById(numCapacitacion)
+        return ICapacitacionRepositorio.findById(numCapacitacion)
                 .map(capacitacion -> mapToDTO(capacitacion, new CapacitacionDTO()))
                 .orElseThrow(NotFoundException::new);
     }
@@ -34,18 +34,18 @@ public class CapacitacionService {
     public Integer create(final CapacitacionDTO capacitacionDTO) {
         final Capacitacion capacitacion = new Capacitacion();
         mapToEntity(capacitacionDTO, capacitacion);
-        return capacitacionRepository.save(capacitacion).getNumCapacitacion();
+        return ICapacitacionRepositorio.save(capacitacion).getNumCapacitacion();
     }
 
     public void update(final Integer numCapacitacion, final CapacitacionDTO capacitacionDTO) {
-        final Capacitacion capacitacion = capacitacionRepository.findById(numCapacitacion)
+        final Capacitacion capacitacion = ICapacitacionRepositorio.findById(numCapacitacion)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(capacitacionDTO, capacitacion);
-        capacitacionRepository.save(capacitacion);
+        ICapacitacionRepositorio.save(capacitacion);
     }
 
     public void delete(final Integer numCapacitacion) {
-        capacitacionRepository.deleteById(numCapacitacion);
+        ICapacitacionRepositorio.deleteById(numCapacitacion);
     }
 
     private CapacitacionDTO mapToDTO(final Capacitacion capacitacion,

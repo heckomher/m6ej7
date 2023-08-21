@@ -1,8 +1,8 @@
-package com.bootcamp.ejercicio7m6.service;
+package com.bootcamp.ejercicio7m6.servicios;
 
-import com.bootcamp.ejercicio7m6.domain.Contacto;
-import com.bootcamp.ejercicio7m6.model.ContactoDTO;
-import com.bootcamp.ejercicio7m6.repos.ContactoRepository;
+import com.bootcamp.ejercicio7m6.entidades.Contacto;
+import com.bootcamp.ejercicio7m6.modelos.ContactoDTO;
+import com.bootcamp.ejercicio7m6.repos.IContactoRepositorio;
 import com.bootcamp.ejercicio7m6.util.NotFoundException;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -10,23 +10,23 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ContactoService {
+public class ContactoServicio {
 
-    private final ContactoRepository contactoRepository;
+    private final IContactoRepositorio IContactoRepositorio;
 
-    public ContactoService(final ContactoRepository contactoRepository) {
-        this.contactoRepository = contactoRepository;
+    public ContactoServicio(final IContactoRepositorio IContactoRepositorio) {
+        this.IContactoRepositorio = IContactoRepositorio;
     }
 
     public List<ContactoDTO> findAll() {
-        final List<Contacto> contactos = contactoRepository.findAll(Sort.by("idContacto"));
+        final List<Contacto> contactos = IContactoRepositorio.findAll(Sort.by("idContacto"));
         return contactos.stream()
                 .map(contacto -> mapToDTO(contacto, new ContactoDTO()))
                 .toList();
     }
 
     public ContactoDTO get(final Integer idContacto) {
-        return contactoRepository.findById(idContacto)
+        return IContactoRepositorio.findById(idContacto)
                 .map(contacto -> mapToDTO(contacto, new ContactoDTO()))
                 .orElseThrow(NotFoundException::new);
     }
@@ -34,18 +34,18 @@ public class ContactoService {
     public Integer create(final ContactoDTO contactoDTO) {
         final Contacto contacto = new Contacto();
         mapToEntity(contactoDTO, contacto);
-        return contactoRepository.save(contacto).getIdContacto();
+        return IContactoRepositorio.save(contacto).getIdContacto();
     }
 
     public void update(final Integer idContacto, final ContactoDTO contactoDTO) {
-        final Contacto contacto = contactoRepository.findById(idContacto)
+        final Contacto contacto = IContactoRepositorio.findById(idContacto)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(contactoDTO, contacto);
-        contactoRepository.save(contacto);
+        IContactoRepositorio.save(contacto);
     }
 
     public void delete(final Integer idContacto) {
-        contactoRepository.deleteById(idContacto);
+        IContactoRepositorio.deleteById(idContacto);
     }
 
     private ContactoDTO mapToDTO(final Contacto contacto, final ContactoDTO contactoDTO) {

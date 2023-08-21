@@ -1,7 +1,7 @@
 package com.bootcamp.ejercicio7m6.rest;
 
-import com.bootcamp.ejercicio7m6.model.CapacitacionDTO;
-import com.bootcamp.ejercicio7m6.service.CapacitacionService;
+import com.bootcamp.ejercicio7m6.modelos.CapacitacionDTO;
+import com.bootcamp.ejercicio7m6.servicios.CapacitacionServicio;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -21,40 +21,40 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/capacitacions", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CapacitacionResource {
 
-    private final CapacitacionService capacitacionService;
+    private final CapacitacionServicio capacitacionServicio;
 
-    public CapacitacionResource(final CapacitacionService capacitacionService) {
-        this.capacitacionService = capacitacionService;
+    public CapacitacionResource(final CapacitacionServicio capacitacionServicio) {
+        this.capacitacionServicio = capacitacionServicio;
     }
 
     @GetMapping
     public ResponseEntity<List<CapacitacionDTO>> getAllCapacitacions() {
-        return ResponseEntity.ok(capacitacionService.findAll());
+        return ResponseEntity.ok(capacitacionServicio.findAll());
     }
 
     @GetMapping("/{numCapacitacion}")
     public ResponseEntity<CapacitacionDTO> getCapacitacion(
             @PathVariable final Integer numCapacitacion) {
-        return ResponseEntity.ok(capacitacionService.get(numCapacitacion));
+        return ResponseEntity.ok(capacitacionServicio.get(numCapacitacion));
     }
 
     @PostMapping
     public ResponseEntity<Integer> createCapacitacion(
             @RequestBody @Valid final CapacitacionDTO capacitacionDTO) {
-        final Integer createdNumCapacitacion = capacitacionService.create(capacitacionDTO);
+        final Integer createdNumCapacitacion = capacitacionServicio.create(capacitacionDTO);
         return new ResponseEntity<>(createdNumCapacitacion, HttpStatus.CREATED);
     }
 
     @PutMapping("/{numCapacitacion}")
     public ResponseEntity<Integer> updateCapacitacion(@PathVariable final Integer numCapacitacion,
             @RequestBody @Valid final CapacitacionDTO capacitacionDTO) {
-        capacitacionService.update(numCapacitacion, capacitacionDTO);
+        capacitacionServicio.update(numCapacitacion, capacitacionDTO);
         return ResponseEntity.ok(numCapacitacion);
     }
 
     @DeleteMapping("/{numCapacitacion}")
     public ResponseEntity<Void> deleteCapacitacion(@PathVariable final Integer numCapacitacion) {
-        capacitacionService.delete(numCapacitacion);
+        capacitacionServicio.delete(numCapacitacion);
         return ResponseEntity.noContent().build();
     }
 

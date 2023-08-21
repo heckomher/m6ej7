@@ -1,14 +1,14 @@
-package com.bootcamp.ejercicio7m6.service;
+package com.bootcamp.ejercicio7m6.servicios;
 
-import com.bootcamp.ejercicio7m6.domain.Administrativo;
-import com.bootcamp.ejercicio7m6.domain.Cliente;
-import com.bootcamp.ejercicio7m6.domain.Profesional;
-import com.bootcamp.ejercicio7m6.domain.Usuario;
-import com.bootcamp.ejercicio7m6.model.UsuarioDTO;
-import com.bootcamp.ejercicio7m6.repos.AdministrativoRepository;
-import com.bootcamp.ejercicio7m6.repos.ClienteRepository;
-import com.bootcamp.ejercicio7m6.repos.ProfesionalRepository;
-import com.bootcamp.ejercicio7m6.repos.UsuarioRepository;
+import com.bootcamp.ejercicio7m6.entidades.Administrativo;
+import com.bootcamp.ejercicio7m6.entidades.Cliente;
+import com.bootcamp.ejercicio7m6.entidades.Profesional;
+import com.bootcamp.ejercicio7m6.entidades.Usuario;
+import com.bootcamp.ejercicio7m6.modelos.UsuarioDTO;
+import com.bootcamp.ejercicio7m6.repos.IAdministrativoRepositorio;
+import com.bootcamp.ejercicio7m6.repos.IClienteRepositorio;
+import com.bootcamp.ejercicio7m6.repos.IProfesionalRepositorio;
+import com.bootcamp.ejercicio7m6.repos.IUsuarioRepositorio;
 import com.bootcamp.ejercicio7m6.util.NotFoundException;
 import com.bootcamp.ejercicio7m6.util.WebUtils;
 import java.util.List;
@@ -17,32 +17,32 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class UsuarioService {
+public class UsuarioServicio {
 
-    private final UsuarioRepository usuarioRepository;
-    private final AdministrativoRepository administrativoRepository;
-    private final ClienteRepository clienteRepository;
-    private final ProfesionalRepository profesionalRepository;
+    private final IUsuarioRepositorio IUsuarioRepositorio;
+    private final IAdministrativoRepositorio IAdministrativoRepositorio;
+    private final IClienteRepositorio IClienteRepositorio;
+    private final IProfesionalRepositorio IProfesionalRepositorio;
 
-    public UsuarioService(final UsuarioRepository usuarioRepository,
-            final AdministrativoRepository administrativoRepository,
-            final ClienteRepository clienteRepository,
-            final ProfesionalRepository profesionalRepository) {
-        this.usuarioRepository = usuarioRepository;
-        this.administrativoRepository = administrativoRepository;
-        this.clienteRepository = clienteRepository;
-        this.profesionalRepository = profesionalRepository;
+    public UsuarioServicio(final IUsuarioRepositorio IUsuarioRepositorio,
+                           final IAdministrativoRepositorio IAdministrativoRepositorio,
+                           final IClienteRepositorio IClienteRepositorio,
+                           final IProfesionalRepositorio IProfesionalRepositorio) {
+        this.IUsuarioRepositorio = IUsuarioRepositorio;
+        this.IAdministrativoRepositorio = IAdministrativoRepositorio;
+        this.IClienteRepositorio = IClienteRepositorio;
+        this.IProfesionalRepositorio = IProfesionalRepositorio;
     }
 
     public List<UsuarioDTO> findAll() {
-        final List<Usuario> usuarios = usuarioRepository.findAll(Sort.by("idUsuario"));
+        final List<Usuario> usuarios = IUsuarioRepositorio.findAll(Sort.by("idUsuario"));
         return usuarios.stream()
                 .map(usuario -> mapToDTO(usuario, new UsuarioDTO()))
                 .toList();
     }
 
     public UsuarioDTO get(final Long idUsuario) {
-        return usuarioRepository.findById(idUsuario)
+        return IUsuarioRepositorio.findById(idUsuario)
                 .map(usuario -> mapToDTO(usuario, new UsuarioDTO()))
                 .orElseThrow(NotFoundException::new);
     }
@@ -50,18 +50,18 @@ public class UsuarioService {
     public Long create(final UsuarioDTO usuarioDTO) {
         final Usuario usuario = new Usuario();
         mapToEntity(usuarioDTO, usuario);
-        return usuarioRepository.save(usuario).getIdUsuario();
+        return IUsuarioRepositorio.save(usuario).getIdUsuario();
     }
 
     public void update(final Long idUsuario, final UsuarioDTO usuarioDTO) {
-        final Usuario usuario = usuarioRepository.findById(idUsuario)
+        final Usuario usuario = IUsuarioRepositorio.findById(idUsuario)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(usuarioDTO, usuario);
-        usuarioRepository.save(usuario);
+        IUsuarioRepositorio.save(usuario);
     }
 
     public void delete(final Long idUsuario) {
-        usuarioRepository.deleteById(idUsuario);
+        IUsuarioRepositorio.deleteById(idUsuario);
     }
 
     private UsuarioDTO mapToDTO(final Usuario usuario, final UsuarioDTO usuarioDTO) {
@@ -82,21 +82,21 @@ public class UsuarioService {
     }
 
     public boolean nombreUsuarioExists(final String nombreUsuario) {
-        return usuarioRepository.existsByNombreUsuarioIgnoreCase(nombreUsuario);
+        return IUsuarioRepositorio.existsByNombreUsuarioIgnoreCase(nombreUsuario);
     }
 
     public String getReferencedWarning(final Long idUsuario) {
-        final Usuario usuario = usuarioRepository.findById(idUsuario)
+        final Usuario usuario = IUsuarioRepositorio.findById(idUsuario)
                 .orElseThrow(NotFoundException::new);
-        final Administrativo usuarioAdministrativo = administrativoRepository.findFirstByUsuario(usuario);
+        final Administrativo usuarioAdministrativo = IAdministrativoRepositorio.findFirstByUsuario(usuario);
         if (usuarioAdministrativo != null) {
             return WebUtils.getMessage("usuario.administrativo.usuario.referenced", usuarioAdministrativo.getIdAdministrativo());
         }
-        final Cliente usuarioCliente = clienteRepository.findFirstByUsuario(usuario);
+        final Cliente usuarioCliente = IClienteRepositorio.findFirstByUsuario(usuario);
         if (usuarioCliente != null) {
             return WebUtils.getMessage("usuario.cliente.usuario.referenced", usuarioCliente.getIdCliente());
         }
-        final Profesional usuarioProfesional = profesionalRepository.findFirstByUsuario(usuario);
+        final Profesional usuarioProfesional = IProfesionalRepositorio.findFirstByUsuario(usuario);
         if (usuarioProfesional != null) {
             return WebUtils.getMessage("usuario.profesional.usuario.referenced", usuarioProfesional.getIdProfesional());
         }

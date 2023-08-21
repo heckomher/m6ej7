@@ -1,7 +1,7 @@
 package com.bootcamp.ejercicio7m6.config;
 
-import com.bootcamp.ejercicio7m6.model.ErrorResponse;
-import com.bootcamp.ejercicio7m6.model.FieldError;
+import com.bootcamp.ejercicio7m6.modelos.ErrorResponse;
+import com.bootcamp.ejercicio7m6.modelos.FieldError;
 import com.bootcamp.ejercicio7m6.util.NotFoundException;
 import java.util.List;
 import org.springframework.http.HttpStatus;

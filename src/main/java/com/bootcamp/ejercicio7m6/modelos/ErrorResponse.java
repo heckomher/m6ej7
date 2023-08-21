@@ -1,4 +1,4 @@
-package com.bootcamp.ejercicio7m6.model;
+package com.bootcamp.ejercicio7m6.modelos;
 
 import java.util.List;
 import lombok.Getter;

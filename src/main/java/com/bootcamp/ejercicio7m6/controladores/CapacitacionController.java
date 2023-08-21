@@ -1,7 +1,7 @@
-package com.bootcamp.ejercicio7m6.controller;
+package com.bootcamp.ejercicio7m6.controladores;
 
-import com.bootcamp.ejercicio7m6.model.CapacitacionDTO;
-import com.bootcamp.ejercicio7m6.service.CapacitacionService;
+import com.bootcamp.ejercicio7m6.modelos.CapacitacionDTO;
+import com.bootcamp.ejercicio7m6.servicios.CapacitacionServicio;
 import com.bootcamp.ejercicio7m6.util.WebUtils;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -19,15 +19,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/capacitacions")
 public class CapacitacionController {
 
-    private final CapacitacionService capacitacionService;
+    private final CapacitacionServicio capacitacionServicio;
 
-    public CapacitacionController(final CapacitacionService capacitacionService) {
-        this.capacitacionService = capacitacionService;
+    public CapacitacionController(final CapacitacionServicio capacitacionServicio) {
+        this.capacitacionServicio = capacitacionServicio;
     }
 
     @GetMapping
     public String list(final Model model) {
-        model.addAttribute("capacitacions", capacitacionService.findAll());
+        model.addAttribute("capacitacions", capacitacionServicio.findAll());
         return "capacitacion/list";
     }
 
@@ -42,14 +42,14 @@ public class CapacitacionController {
         if (bindingResult.hasErrors()) {
             return "capacitacion/add";
         }
-        capacitacionService.create(capacitacionDTO);
+        capacitacionServicio.create(capacitacionDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("capacitacion.create.success"));
         return "redirect:/capacitacions";
     }
 
     @GetMapping("/edit/{numCapacitacion}")
     public String edit(@PathVariable final Integer numCapacitacion, final Model model) {
-        model.addAttribute("capacitacion", capacitacionService.get(numCapacitacion));
+        model.addAttribute("capacitacion", capacitacionServicio.get(numCapacitacion));
         return "capacitacion/edit";
     }
 
@@ -60,7 +60,7 @@ public class CapacitacionController {
         if (bindingResult.hasErrors()) {
             return "capacitacion/edit";
         }
-        capacitacionService.update(numCapacitacion, capacitacionDTO);
+        capacitacionServicio.update(numCapacitacion, capacitacionDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("capacitacion.update.success"));
         return "redirect:/capacitacions";
     }
@@ -68,7 +68,7 @@ public class CapacitacionController {
     @PostMapping("/delete/{numCapacitacion}")
     public String delete(@PathVariable final Integer numCapacitacion,
             final RedirectAttributes redirectAttributes) {
-        capacitacionService.delete(numCapacitacion);
+        capacitacionServicio.delete(numCapacitacion);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("capacitacion.delete.success"));
         return "redirect:/capacitacions";
     }

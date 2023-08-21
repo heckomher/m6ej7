@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@EntityScan("com.bootcamp.ejercicio7m6.domain")
+@EntityScan("com.bootcamp.ejercicio7m6.entidades")
 @EnableJpaRepositories("com.bootcamp.ejercicio7m6.repos")
 @EnableTransactionManagement
 @EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")

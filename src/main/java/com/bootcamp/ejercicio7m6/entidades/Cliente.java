@@ -1,4 +1,4 @@
-package com.bootcamp.ejercicio7m6.domain;
+package com.bootcamp.ejercicio7m6.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,6 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import java.time.OffsetDateTime;
 import lombok.Getter;
@@ -20,33 +21,40 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Usuario {
+public class Cliente {
 
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUsuario;
+    private Long idCliente;
 
     @Column
-    private String apellido;
+    private String afp;
 
     @Column
-    private String nombre;
+    private String apellidos;
 
-    @Column(nullable = false, unique = true)
-    private String nombreUsuario;
+    @Column
+    private String comuna;
 
-    @Column(nullable = false)
-    private String tipoUsuario;
+    @Column
+    private String direccion;
 
-    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private Administrativo usuarioAdministrativo;
+    @Column
+    private String edad;
 
-    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private Cliente usuarioClientes;
+    @Column(length = 12)
+    private String rut;
 
-    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private Profesional usuarioProfesionales;
+    @Column
+    private Integer sistemaSalud;
+
+    @Column
+    private String telefono;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", unique = true)
+    private Usuario usuario;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

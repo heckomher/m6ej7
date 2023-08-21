@@ -1,10 +1,10 @@
-package com.bootcamp.ejercicio7m6.service;
+package com.bootcamp.ejercicio7m6.servicios;
 
-import com.bootcamp.ejercicio7m6.domain.Cliente;
-import com.bootcamp.ejercicio7m6.domain.Usuario;
-import com.bootcamp.ejercicio7m6.model.ClienteDTO;
-import com.bootcamp.ejercicio7m6.repos.ClienteRepository;
-import com.bootcamp.ejercicio7m6.repos.UsuarioRepository;
+import com.bootcamp.ejercicio7m6.entidades.Cliente;
+import com.bootcamp.ejercicio7m6.entidades.Usuario;
+import com.bootcamp.ejercicio7m6.modelos.ClienteDTO;
+import com.bootcamp.ejercicio7m6.repos.IClienteRepositorio;
+import com.bootcamp.ejercicio7m6.repos.IUsuarioRepositorio;
 import com.bootcamp.ejercicio7m6.util.NotFoundException;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -12,26 +12,26 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ClienteService {
+public class ClienteServicio {
 
-    private final ClienteRepository clienteRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final IClienteRepositorio IClienteRepositorio;
+    private final IUsuarioRepositorio IUsuarioRepositorio;
 
-    public ClienteService(final ClienteRepository clienteRepository,
-            final UsuarioRepository usuarioRepository) {
-        this.clienteRepository = clienteRepository;
-        this.usuarioRepository = usuarioRepository;
+    public ClienteServicio(final IClienteRepositorio IClienteRepositorio,
+                           final IUsuarioRepositorio IUsuarioRepositorio) {
+        this.IClienteRepositorio = IClienteRepositorio;
+        this.IUsuarioRepositorio = IUsuarioRepositorio;
     }
 
     public List<ClienteDTO> findAll() {
-        final List<Cliente> clientes = clienteRepository.findAll(Sort.by("idCliente"));
+        final List<Cliente> clientes = IClienteRepositorio.findAll(Sort.by("idCliente"));
         return clientes.stream()
                 .map(cliente -> mapToDTO(cliente, new ClienteDTO()))
                 .toList();
     }
 
     public ClienteDTO get(final Long idCliente) {
-        return clienteRepository.findById(idCliente)
+        return IClienteRepositorio.findById(idCliente)
                 .map(cliente -> mapToDTO(cliente, new ClienteDTO()))
                 .orElseThrow(NotFoundException::new);
     }
@@ -39,18 +39,18 @@ public class ClienteService {
     public Long create(final ClienteDTO clienteDTO) {
         final Cliente cliente = new Cliente();
         mapToEntity(clienteDTO, cliente);
-        return clienteRepository.save(cliente).getIdCliente();
+        return IClienteRepositorio.save(cliente).getIdCliente();
     }
 
     public void update(final Long idCliente, final ClienteDTO clienteDTO) {
-        final Cliente cliente = clienteRepository.findById(idCliente)
+        final Cliente cliente = IClienteRepositorio.findById(idCliente)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(clienteDTO, cliente);
-        clienteRepository.save(cliente);
+        IClienteRepositorio.save(cliente);
     }
 
     public void delete(final Long idCliente) {
-        clienteRepository.deleteById(idCliente);
+        IClienteRepositorio.deleteById(idCliente);
     }
 
     private ClienteDTO mapToDTO(final Cliente cliente, final ClienteDTO clienteDTO) {
@@ -76,14 +76,14 @@ public class ClienteService {
         cliente.setRut(clienteDTO.getRut());
         cliente.setSistemaSalud(clienteDTO.getSistemaSalud());
         cliente.setTelefono(clienteDTO.getTelefono());
-        final Usuario usuario = clienteDTO.getUsuario() == null ? null : usuarioRepository.findById(clienteDTO.getUsuario())
+        final Usuario usuario = clienteDTO.getUsuario() == null ? null : IUsuarioRepositorio.findById(clienteDTO.getUsuario())
                 .orElseThrow(() -> new NotFoundException("usuario not found"));
         cliente.setUsuario(usuario);
         return cliente;
     }
 
     public boolean usuarioExists(final Long idUsuario) {
-        return clienteRepository.existsByUsuarioIdUsuario(idUsuario);
+        return IClienteRepositorio.existsByUsuarioIdUsuario(idUsuario);
     }
 
 }

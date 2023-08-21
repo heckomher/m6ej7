@@ -1,4 +1,4 @@
-package com.bootcamp.ejercicio7m6.controller;
+package com.bootcamp.ejercicio7m6.controladores;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

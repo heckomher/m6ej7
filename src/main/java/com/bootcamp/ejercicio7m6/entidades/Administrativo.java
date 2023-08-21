@@ -1,12 +1,14 @@
-package com.bootcamp.ejercicio7m6.domain;
+package com.bootcamp.ejercicio7m6.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalTime;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import java.time.OffsetDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,33 +21,22 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Capacitacion {
+public class Administrativo {
 
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer numCapacitacion;
-
-    @Column(nullable = false)
-    private Integer cantidadAsistentes;
-
-    @Column(nullable = false)
-    private String detalle;
+    private Long idAdministrativo;
 
     @Column
-    private String diaSemana;
+    private String area;
 
     @Column
-    private LocalTime duracion;
+    private String experienciaPrevia;
 
-    @Column
-    private LocalTime hora;
-
-    @Column(nullable = false, length = 20)
-    private String lugar;
-
-    @Column(nullable = false)
-    private String nombre;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", unique = true)
+    private Usuario usuario;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

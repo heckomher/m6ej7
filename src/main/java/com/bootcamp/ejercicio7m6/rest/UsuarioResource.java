@@ -1,7 +1,7 @@
 package com.bootcamp.ejercicio7m6.rest;
 
-import com.bootcamp.ejercicio7m6.model.UsuarioDTO;
-import com.bootcamp.ejercicio7m6.service.UsuarioService;
+import com.bootcamp.ejercicio7m6.modelos.UsuarioDTO;
+import com.bootcamp.ejercicio7m6.servicios.UsuarioServicio;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -21,38 +21,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UsuarioResource {
 
-    private final UsuarioService usuarioService;
+    private final UsuarioServicio usuarioServicio;
 
-    public UsuarioResource(final UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public UsuarioResource(final UsuarioServicio usuarioServicio) {
+        this.usuarioServicio = usuarioServicio;
     }
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> getAllUsuarios() {
-        return ResponseEntity.ok(usuarioService.findAll());
+        return ResponseEntity.ok(usuarioServicio.findAll());
     }
 
     @GetMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDTO> getUsuario(@PathVariable final Long idUsuario) {
-        return ResponseEntity.ok(usuarioService.get(idUsuario));
+        return ResponseEntity.ok(usuarioServicio.get(idUsuario));
     }
 
     @PostMapping
     public ResponseEntity<Long> createUsuario(@RequestBody @Valid final UsuarioDTO usuarioDTO) {
-        final Long createdIdUsuario = usuarioService.create(usuarioDTO);
+        final Long createdIdUsuario = usuarioServicio.create(usuarioDTO);
         return new ResponseEntity<>(createdIdUsuario, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idUsuario}")
     public ResponseEntity<Long> updateUsuario(@PathVariable final Long idUsuario,
             @RequestBody @Valid final UsuarioDTO usuarioDTO) {
-        usuarioService.update(idUsuario, usuarioDTO);
+        usuarioServicio.update(idUsuario, usuarioDTO);
         return ResponseEntity.ok(idUsuario);
     }
 
     @DeleteMapping("/{idUsuario}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable final Long idUsuario) {
-        usuarioService.delete(idUsuario);
+        usuarioServicio.delete(idUsuario);
         return ResponseEntity.noContent().build();
     }
 

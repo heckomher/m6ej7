@@ -1,7 +1,7 @@
-package com.bootcamp.ejercicio7m6.controller;
+package com.bootcamp.ejercicio7m6.controladores;
 
-import com.bootcamp.ejercicio7m6.model.ContactoDTO;
-import com.bootcamp.ejercicio7m6.service.ContactoService;
+import com.bootcamp.ejercicio7m6.modelos.ContactoDTO;
+import com.bootcamp.ejercicio7m6.servicios.ContactoServicio;
 import com.bootcamp.ejercicio7m6.util.WebUtils;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -19,15 +19,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/contactos")
 public class ContactoController {
 
-    private final ContactoService contactoService;
+    private final ContactoServicio contactoServicio;
 
-    public ContactoController(final ContactoService contactoService) {
-        this.contactoService = contactoService;
+    public ContactoController(final ContactoServicio contactoServicio) {
+        this.contactoServicio = contactoServicio;
     }
 
     @GetMapping
     public String list(final Model model) {
-        model.addAttribute("contactos", contactoService.findAll());
+        model.addAttribute("contactos", contactoServicio.findAll());
         return "contacto/list";
     }
 
@@ -42,14 +42,14 @@ public class ContactoController {
         if (bindingResult.hasErrors()) {
             return "contacto/add";
         }
-        contactoService.create(contactoDTO);
+        contactoServicio.create(contactoDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("contacto.create.success"));
         return "redirect:/contactos";
     }
 
     @GetMapping("/edit/{idContacto}")
     public String edit(@PathVariable final Integer idContacto, final Model model) {
-        model.addAttribute("contacto", contactoService.get(idContacto));
+        model.addAttribute("contacto", contactoServicio.get(idContacto));
         return "contacto/edit";
     }
 
@@ -60,7 +60,7 @@ public class ContactoController {
         if (bindingResult.hasErrors()) {
             return "contacto/edit";
         }
-        contactoService.update(idContacto, contactoDTO);
+        contactoServicio.update(idContacto, contactoDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("contacto.update.success"));
         return "redirect:/contactos";
     }
@@ -68,7 +68,7 @@ public class ContactoController {
     @PostMapping("/delete/{idContacto}")
     public String delete(@PathVariable final Integer idContacto,
             final RedirectAttributes redirectAttributes) {
-        contactoService.delete(idContacto);
+        contactoServicio.delete(idContacto);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("contacto.delete.success"));
         return "redirect:/contactos";
     }
