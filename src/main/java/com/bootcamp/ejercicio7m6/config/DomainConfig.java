@@ -20,6 +20,7 @@ public class DomainConfig {
 
     @Bean(name = "auditingDateTimeProvider")
     public DateTimeProvider dateTimeProvider() {
+
         return () -> Optional.of(OffsetDateTime.now());
     }
 
