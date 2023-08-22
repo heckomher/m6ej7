@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.Arrays;
+
+import java.util.List;
 
 
 @Controller
@@ -34,6 +37,11 @@ public class UsuarioController {
     @GetMapping("/add")
     public String add(@ModelAttribute("usuario") final UsuarioDTO usuarioDTO) {
         return "usuario/add";
+    }
+
+    @ModelAttribute("tipoUsuarioValues")
+    public List<String> tipoUsuarioValues() {
+        return Arrays.asList("Administrador", "Cliente", "Profesional"); // Definir tus valores aquí
     }
 
     @PostMapping("/add")

@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
         <div th:fragment="inputRow(object, field)" th:with="type=${type} ?: 'text', required=${required}, inputClass=${inputClass}" th:object="${__${object}__}" class="row mb-3">
+
+
             <div th:if="${type == 'checkbox'}" class="col-md-10 offset-md-2">
                 <div class="form-check">
                     <input th:type="${type}" th:field="*{__${field}__}" th:classappend="${#fields.hasErrors(field) ? 'is-invalid' : ''} + ' ' + ${inputClass}" class="form-check-input" />
