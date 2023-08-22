@@ -38,6 +38,8 @@ public class SeguridadWebConfig  {
                 .logout(logout ->
                         logout
                                 .permitAll()
+                                .logoutUrl("/logout")  // Ruta para realizar el logout
+                                .logoutSuccessUrl("/login")  // Ruta a la que redirigir después del logout
                 );
 
         return http.build();

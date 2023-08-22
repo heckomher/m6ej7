@@ -8,4 +8,6 @@ public interface IUsuarioRepositorio extends JpaRepository<Usuario, Long> {
 
     boolean existsByNombreUsuarioIgnoreCase(String nombreUsuario);
 
+    Usuario findUsuarioByNombreUsuario(String nombreUsuario);
+
 }

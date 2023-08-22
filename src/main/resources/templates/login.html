@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+
   <head>
-    <title>Inicio de Sesión</title>
+    <title>Iniciar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
       /* Personaliza el contenedor del formulario para centrarlo verticalmente */
       body {
@@ -19,19 +22,23 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1 class="mb-4">Iniciar Sesión</h1>
-      <form th:action="@{/login}" method="post">
-        <div class="input-group mb-3">
-          <label class="input-group-text" id="username_label" for="username">Usuario:</label>
-          <input class="form-control" id="username" type="text" aria-describedby="username_label" name="username" required />
-        </div>
-        <div class="input-group mb-3">
-          <label class="input-group-text" id="password_label" for="password">Clave  :</label>
-          <input class="form-control" id="password" type="password" aria-describedby="password_label" name="password" required />
-        </div>
-        <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
-      </form>
-    </div>
+  <div class="container">
+    <h1 class="mb-4">Iniciar Sesión</h1>
+    <form th:action="@{/login}" method="post">
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="username" id="username_label">Usuario</label>
+        <input type="text" class="form-control" aria-describedby="username_label" id="username" name="username">
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="password" id="password_label">Contraseña</label>
+        <input type="password" class="form-control" aria-describedby="password_label" id="password" name="password">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+    </form>
+  </div>
+
+
+
   </body>
 </html>

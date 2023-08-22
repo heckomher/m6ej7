@@ -6,16 +6,67 @@
     </head>
     <body>
         <div layout:fragment="content">
-            <h1 th:text="#{home.index.headline}" class="mb-4" />
-            <p th:utext="#{home.index.text}" class="mb-5" />
-            <div class="col-md-4 mb-5">
-                <h4 th:text="#{home.index.exploreEntities}" class="mb-3" />
-                <div class="list-group">
-                    <a th:href="@{/capacitacions}" th:text="#{capacitacion.list.headline}" class="list-group-item list-group-item-action" />
-                    <a th:href="@{/contactos}" th:text="#{contacto.list.headline}" class="list-group-item list-group-item-action" />
-                    <a th:href="@{/usuarios}" th:text="#{usuario.list.headline}" class="list-group-item list-group-item-action" />
+
+
+                <!-- Carousel -->
+                <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <!-- Indicadores -->
+                    <ol class="carousel-indicators">
+                        <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+                        <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+                        <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Slides -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img th:src="@{/images/imagen-1.jpg}" alt="Capacitación 1">
+                                <div class="carousel-caption">
+                                    <h3>Capacitación en Prevención de Riesgos</h3>
+                                    <p>Enfocada en la industria minera</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img th:src="@{/images/imagen-2.jpg}" alt="Capacitación 2">
+                                <div class="carousel-caption">
+                                    <h3>Capacitación en Prevención de Riesgos</h3>
+                                    <p>Enfocada en la industria minera</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img th:src="@{/images/imagen-3.jpg}" alt="Capacitación 3">
+                                <div class="carousel-caption">
+                                    <h3>Capacitación en Prevención de Riesgos</h3>
+                                    <p>Enfocada en la industria minera</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles de navegación -->
+                    <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </a>
                 </div>
-            </div>
+
+                <div class="row"> <!-- Fila -->
+                    <div class="col-md-12"> <!-- Columna -->
+                        <h1>Capacitaciones en Prevención de Riesgos</h1>
+                        <p>En esta página encontrarás información sobre las capacitaciones que ofrecemos en Prevención de
+                            Riesgos.</p>
+                    </div>
+                </div>
+
         </div>
     </body>
 </html>

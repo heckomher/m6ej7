@@ -1,5 +1,6 @@
 package com.bootcamp.ejercicio7m6.modelos;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -25,5 +26,8 @@ public class UsuarioDTO {
     @NotNull
     @Size(max = 255)
     private String tipoUsuario;
+
+    @NotNull
+    private String contrasena;
 
 }

@@ -13,6 +13,8 @@ import com.bootcamp.ejercicio7m6.util.NotFoundException;
 import com.bootcamp.ejercicio7m6.util.WebUtils;
 import java.util.List;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -102,5 +104,22 @@ public class UsuarioServicio {
         }
         return null;
     }
+
+
+
+    /*public UserDetails getUsuarioPorNombre(String username) throws UsernameNotFoundException {
+        Usuario user = IUsuarioRepositorio.findUsuarioByNombreUsuario(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getNombreUsuario(),
+                user.getContrasena(),
+                user.getTipoUsuario()
+
+        );
+    }*/
 
 }

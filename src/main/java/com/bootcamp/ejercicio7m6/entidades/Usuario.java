@@ -37,6 +37,9 @@ public class Usuario {
     private String nombreUsuario;
 
     @Column(nullable = false)
+    private String contrasena;
+
+    @Column(nullable = false)
     private String tipoUsuario;
 
     @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
