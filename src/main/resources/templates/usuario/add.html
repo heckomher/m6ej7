@@ -17,6 +17,27 @@
                 <div th:replace="~{fragments/forms::inputRow(object='usuario', field='apellido')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombre')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombreUsuario')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario', type='select', inputClass='custom-class', __tipoUsuario__Values=${tipoUsuarioValues})}" />
+
+
+                <div th:if="${usuario.tipoUsuario == 'Cliente'}">
+                    <!-- Campos específicos para Cliente -->
+                    <div th:replace="~{fragments/forms::inputRow(object='usuarioCliente', field='apellidos')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='usuarioCliente', field='rut')}" />
+                </div>
+
+                <div th:if="${usuario.tipoUsuario == 'Administrador'}">
+                    <!-- Campos específicos para Administrativo -->
+                    <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='area')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='experienciaPrevia')}" />
+                </div>
+
+                <div th:if="${usuario.tipoUsuario == 'Profesional'}">
+                    <!-- Campos específicos para Profesional -->
+                    <div th:replace="~{fragments/forms::inputRow(object='usuarioProfesional', field='fechaIngreso')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='usuarioProfesional', field='titulo')}" />
+                </div>
+
                 <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario')}" />
                 <input type="submit" th:value="#{usuario.add.headline}" class="btn btn-primary mt-4" />
             </form>
