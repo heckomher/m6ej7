@@ -1,46 +1,38 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout}">
-    <head>
-        <title th:text="#{usuario.add.headline}" />
-    </head>
-    <body>
-        <div layout:fragment="content">
-            <div class="d-flex flex-wrap mb-4">
-                <h1 th:text="#{usuario.add.headline}" class="flex-grow-1" />
-                <div>
-                    <a th:href="@{/usuarios}" th:text="#{usuario.add.back}" class="btn btn-secondary" />
-                </div>
-            </div>
-            <div th:replace="~{fragments/forms::globalErrors('usuario')}" />
-            <form th:action="${T(com.bootcamp.ejercicio7m6.util.WebUtils).getRequest().requestURI}" method="post">
-                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='apellido')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombre')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombreUsuario')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario', type='select', inputClass='custom-class', __tipoUsuario__Values=${tipoUsuarioValues})}" />
-
-
-                <div th:if="${usuario.tipoUsuario == 'Cliente'}">
-                    <!-- Campos específicos para Cliente -->
-                    <div th:replace="~{fragments/forms::inputRow(object='usuarioCliente', field='apellidos')}" />
-                    <div th:replace="~{fragments/forms::inputRow(object='usuarioCliente', field='rut')}" />
-                </div>
-
-                <div th:if="${usuario.tipoUsuario == 'Administrador'}">
-                    <!-- Campos específicos para Administrativo -->
-                    <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='area')}" />
-                    <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='experienciaPrevia')}" />
-                </div>
-
-                <div th:if="${usuario.tipoUsuario == 'Profesional'}">
-                    <!-- Campos específicos para Profesional -->
-                    <div th:replace="~{fragments/forms::inputRow(object='usuarioProfesional', field='fechaIngreso')}" />
-                    <div th:replace="~{fragments/forms::inputRow(object='usuarioProfesional', field='titulo')}" />
-                </div>
-
-                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario')}" />
-                <input type="submit" th:value="#{usuario.add.headline}" class="btn btn-primary mt-4" />
-            </form>
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{usuario.add.headline}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 th:text="#{usuario.add.headline}" class="flex-grow-1" />
+        <div>
+            <a th:href="@{/usuarios}" th:text="#{usuario.add.back}" class="btn btn-secondary" />
         </div>
-    </body>
+    </div>
+    <div th:replace="~{fragments/forms::globalErrors('usuario')}" />
+    <form th:action="${T(com.bootcamp.ejercicio7m6.util.WebUtils).getRequest().requestURI}" method="post">
+        <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombre')}" />
+        <div th:replace="~{fragments/forms::inputRow(object='usuario', field='apellido')}" />
+        <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombreUsuario')}" />
+        <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario', type='select', inputClass='custom-class', __tipoUsuario__Values=${tipoUsuarioValues})}" />
+
+        <div th:if="${usuario.tipoUsuario == 'Administrador'}">
+            <!-- Campos específicos para Administrativo -->
+            <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='area')}" />
+            <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='experienciaPrevia')}" />
+        </div>
+
+        <div th:if="${usuario.tipoUsuario == 'Profesional'}">
+            <!-- Campos específicos para Profesional -->
+            <div th:replace="~{fragments/forms::inputRow(object='usuarioProfesional', field='fechaIngreso')}" />
+            <div th:replace="~{fragments/forms::inputRow(object='usuarioProfesional', field='titulo')}" />
+        </div>
+
+        <input type="submit" th:value="#{usuario.add.headline}" class="btn btn-primary mt-4" />
+    </form>
+</div>
+</body>
 </html>
