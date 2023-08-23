@@ -3,6 +3,7 @@
       layout:decorate="~{layout}">
 <head>
     <title th:text="#{usuario.add.headline}" />
+    <script th:src="@{/js/validaUsuario.js}" defer></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -19,16 +20,29 @@
         <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombreUsuario')}" />
         <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario', type='select', inputClass='custom-class', __tipoUsuario__Values=${tipoUsuarioValues})}" />
 
-        <div th:if="${usuario.tipoUsuario == 'Administrador'}">
+        <div id="form-administrativo">
             <!-- Campos específicos para Administrativo -->
-            <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='area')}" />
-            <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='experienciaPrevia')}" />
+            <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='area' , label='Área')}" />
+            <div th:replace="~{fragments/forms::inputRow(object='usuarioAdministrativo', field='experienciaPrevia' , label='Experiencia Previa')}" />
         </div>
 
-        <div th:if="${usuario.tipoUsuario == 'Profesional'}">
+        <div id="form-profesional">
             <!-- Campos específicos para Profesional -->
             <div th:replace="~{fragments/forms::inputRow(object='usuarioProfesional', field='fechaIngreso')}" />
             <div th:replace="~{fragments/forms::inputRow(object='usuarioProfesional', field='titulo')}" />
+        </div>
+
+        <div id="form-cliente">
+            <!-- Campos específicos para Profesional -->
+            <div th:replace="~{fragments/forms::inputRow(object='usuarioCliente', field='rut')}" />
+            <div th:replace="~{fragments/forms::inputRow(object='usuarioCliente', field='apellidos')}" />
+            <div class="input-row">
+                <label>Sistema Salud</label>
+                <select th:replace="~{fragments/forms::inputRow(object='usuarioCliente', field='sistemaSalud', type='select', inputClass='custom-class')}">
+                    <option th:each="option : ${sistemaSaludValues}"
+                            th:value="${option.value}" th:text="${option.text}"></option>
+                </select>
+            </div>
         </div>
 
         <input type="submit" th:value="#{usuario.add.headline}" class="btn btn-primary mt-4" />

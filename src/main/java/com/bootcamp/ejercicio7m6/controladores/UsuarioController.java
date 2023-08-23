@@ -1,5 +1,8 @@
 package com.bootcamp.ejercicio7m6.controladores;
 
+import com.bootcamp.ejercicio7m6.modelos.AdministrativoDTO;
+import com.bootcamp.ejercicio7m6.modelos.ClienteDTO;
+import com.bootcamp.ejercicio7m6.modelos.ProfesionalDTO;
 import com.bootcamp.ejercicio7m6.modelos.UsuarioDTO;
 import com.bootcamp.ejercicio7m6.servicios.UsuarioServicio;
 import com.bootcamp.ejercicio7m6.util.WebUtils;
@@ -13,9 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import java.util.Arrays;
 
-import java.util.List;
+import java.util.*;
 
 
 @Controller
@@ -35,14 +37,19 @@ public class UsuarioController {
     }
 
     @GetMapping("/add")
-    public String add(@ModelAttribute("usuario") final UsuarioDTO usuarioDTO) {
+    public String add(@ModelAttribute("usuario") final UsuarioDTO usuarioDTO ,
+                      @ModelAttribute("usuarioAdministrativo") final AdministrativoDTO cadministrativoDTO ,
+                      @ModelAttribute("usuarioProfesional") final ProfesionalDTO profesionalDTO ,
+                      @ModelAttribute("usuarioCliente") final ClienteDTO clienteDTO) {
         return "usuario/add";
     }
 
     @ModelAttribute("tipoUsuarioValues")
     public List<String> tipoUsuarioValues() {
-        return Arrays.asList("Administrador", "Cliente", "Profesional"); // Definir tus valores aquí
+        return Arrays.asList("Administrativo", "Cliente", "Profesional"); // Definir tus valores aquí
     }
+
+
 
     @PostMapping("/add")
     public String add(@ModelAttribute("usuario") @Valid final UsuarioDTO usuarioDTO,
