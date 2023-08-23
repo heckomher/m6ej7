@@ -27,7 +27,7 @@ public class UsuarioResource {
         this.usuarioServicio = usuarioServicio;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<UsuarioDTO>> getAllUsuarios() {
         return ResponseEntity.ok(usuarioServicio.findAll());
     }

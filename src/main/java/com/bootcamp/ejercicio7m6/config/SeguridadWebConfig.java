@@ -5,6 +5,7 @@ import com.bootcamp.ejercicio7m6.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,6 +23,7 @@ public class SeguridadWebConfig {
     UsuarioServicio userDetailsService;
 
 
+
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -30,6 +32,8 @@ public class SeguridadWebConfig {
                                 .requestMatchers("/login").permitAll()
                                 .anyRequest().authenticated()
                 )
+                .csrf(AbstractHttpConfigurer::disable)
+
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
@@ -40,7 +44,8 @@ public class SeguridadWebConfig {
                                 .permitAll()
                                 .logoutUrl("/logout")  // Ruta para realizar el logout
                                 .logoutSuccessUrl("/login")  // Ruta a la que redirigir después del logout
-                );
+                )
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
