@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping("/capacitacions")
+@RequestMapping("/capacitaciones")
 public class CapacitacionController {
 
     private final CapacitacionServicio capacitacionServicio;
@@ -27,7 +27,7 @@ public class CapacitacionController {
 
     @GetMapping
     public String list(final Model model) {
-        model.addAttribute("capacitacions", capacitacionServicio.findAll());
+        model.addAttribute("capacitaciones", capacitacionServicio.findAll());
         return "capacitacion/list";
     }
 
@@ -44,7 +44,7 @@ public class CapacitacionController {
         }
         capacitacionServicio.create(capacitacionDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("capacitacion.create.success"));
-        return "redirect:/capacitacions";
+        return "redirect:/capacitaciones";
     }
 
     @GetMapping("/edit/{numCapacitacion}")
@@ -62,7 +62,7 @@ public class CapacitacionController {
         }
         capacitacionServicio.update(numCapacitacion, capacitacionDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("capacitacion.update.success"));
-        return "redirect:/capacitacions";
+        return "redirect:/capacitaciones";
     }
 
     @PostMapping("/delete/{numCapacitacion}")
@@ -70,7 +70,7 @@ public class CapacitacionController {
             final RedirectAttributes redirectAttributes) {
         capacitacionServicio.delete(numCapacitacion);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("capacitacion.delete.success"));
-        return "redirect:/capacitacions";
+        return "redirect:/capacitaciones";
     }
 
 }

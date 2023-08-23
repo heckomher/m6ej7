@@ -19,8 +19,8 @@ public class CapacitacionServicio {
     }
 
     public List<CapacitacionDTO> findAll() {
-        final List<Capacitacion> capacitacions = ICapacitacionRepositorio.findAll(Sort.by("numCapacitacion"));
-        return capacitacions.stream()
+        final List<Capacitacion> capacitaciones = ICapacitacionRepositorio.findAll(Sort.by("numCapacitacion"));
+        return capacitaciones.stream()
                 .map(capacitacion -> mapToDTO(capacitacion, new CapacitacionDTO()))
                 .toList();
     }
