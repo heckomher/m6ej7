@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.Arrays;
+
+import java.util.List;
 
 
 @Controller
@@ -36,9 +39,14 @@ public class UsuarioController {
         return "usuario/add";
     }
 
+    @ModelAttribute("tipoUsuarioValues")
+    public List<String> tipoUsuarioValues() {
+        return Arrays.asList("Administrador", "Cliente", "Profesional"); // Definir tus valores aquí
+    }
+
     @PostMapping("/add")
     public String add(@ModelAttribute("usuario") @Valid final UsuarioDTO usuarioDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                      final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasFieldErrors("nombreUsuario") && usuarioServicio.nombreUsuarioExists(usuarioDTO.getNombreUsuario())) {
             bindingResult.rejectValue("nombreUsuario", "Exists.usuario.nombreUsuario");
         }
@@ -58,8 +66,8 @@ public class UsuarioController {
 
     @PostMapping("/edit/{idUsuario}")
     public String edit(@PathVariable final Long idUsuario,
-            @ModelAttribute("usuario") @Valid final UsuarioDTO usuarioDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                       @ModelAttribute("usuario") @Valid final UsuarioDTO usuarioDTO,
+                       final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         final UsuarioDTO currentUsuarioDTO = usuarioServicio.get(idUsuario);
         if (!bindingResult.hasFieldErrors("nombreUsuario") &&
                 !usuarioDTO.getNombreUsuario().equalsIgnoreCase(currentUsuarioDTO.getNombreUsuario()) &&
@@ -76,7 +84,7 @@ public class UsuarioController {
 
     @PostMapping("/delete/{idUsuario}")
     public String delete(@PathVariable final Long idUsuario,
-            final RedirectAttributes redirectAttributes) {
+                         final RedirectAttributes redirectAttributes) {
         final String referencedWarning = usuarioServicio.getReferencedWarning(idUsuario);
         if (referencedWarning != null) {
             redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR, referencedWarning);
