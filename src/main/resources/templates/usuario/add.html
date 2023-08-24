@@ -35,17 +35,22 @@
 
         <div id="form-cliente">
             <!-- Campos específicos para Profesional -->
+            <div th:replace="~{fragments/forms::inputRow(object='cliente', field='apellidos')}" />
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='rut')}" />
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='direccion')}" />
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='comuna')}" />
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='edad')}" />
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='telefono')}" />
-            <div class="row">
-                <label class="col-md-2 col-form-label">Sistema Salud</label>
-                <select class="col-md-8 form-control" name="sistemaSalud">
-                    <option value="1">FONASA</option>
-                    <option value="2">ISAPRE</option>
-                </select>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">
+                    <span>Sistema Salud</span>
+                </label>
+                <div class="col-md-10">
+                    <select class="col-md-8 form-control" name="sistemaSalud">
+                        <option value="1">FONASA</option>
+                        <option value="2">ISAPRE</option>
+                    </select>
+                </div>
             </div>
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='afp')}" />
 

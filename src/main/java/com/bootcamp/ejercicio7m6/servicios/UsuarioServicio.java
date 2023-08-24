@@ -43,6 +43,10 @@ public class UsuarioServicio {
                 .toList();
     }
 
+    public Usuario findById(long idUsuario){
+        return IUsuarioRepositorio.findById(idUsuario).orElseThrow();
+    }
+
     public UsuarioDTO get(final Long idUsuario) {
         return IUsuarioRepositorio.findById(idUsuario)
                 .map(usuario -> mapToDTO(usuario, new UsuarioDTO()))
@@ -52,15 +56,15 @@ public class UsuarioServicio {
     public Long create(final UsuarioDTO usuarioDTO) {
         final Usuario usuario = new Usuario();
         mapToEntity(usuarioDTO, usuario);
-        usuario.setContrasena(usuarioDTO.getContrasena());
-        System.out.println("contrasena:" + usuario.getContrasena());
-        System.out.println("usuario:" + usuario.getNombreUsuario());
+
+
         return IUsuarioRepositorio.save(usuario).getIdUsuario();
     }
 
     public void update(final Long idUsuario, final UsuarioDTO usuarioDTO) {
         final Usuario usuario = IUsuarioRepositorio.findById(idUsuario)
                 .orElseThrow(NotFoundException::new);
+
         mapToEntity(usuarioDTO, usuario);
         IUsuarioRepositorio.save(usuario);
     }
@@ -75,6 +79,8 @@ public class UsuarioServicio {
         usuarioDTO.setNombre(usuario.getNombre());
         usuarioDTO.setNombreUsuario(usuario.getNombreUsuario());
         usuarioDTO.setTipoUsuario(usuario.getTipoUsuario());
+        usuarioDTO.setContrasena(usuario.getContrasena());
+
         return usuarioDTO;
     }
 

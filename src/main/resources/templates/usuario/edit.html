@@ -14,10 +14,63 @@
             </div>
             <div th:replace="~{fragments/forms::globalErrors('usuario')}" />
             <form th:action="${T(com.bootcamp.ejercicio7m6.util.WebUtils).getRequest().requestURI}" method="post">
-                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='apellido')}" />
+
                 <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombre')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombreUsuario')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario')}" />
+                <!--<div th:replace="~{fragments/forms::inputRow(object='usuario', field='contrasena' , type='password')}" />-->
+
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">
+                        <span>Contraseña</span>
+                    </label>
+                    <div class="col-md-10">
+                        <input type="password"
+                               name="contrasena" class="form-control" th:value="${usuario.contrasena}"/>
+
+                    </div>
+                </div>
+
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario' )}" th:disabled="true" />
+
+
+                <div th:if="${usuario.tipoUsuario == 'Administrativo'}" id="form-administrativo">
+                    <!-- Campos específicos para Administrativo -->
+                    <div th:replace="~{fragments/forms::inputRow(object='administrativo', field='area' )}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='administrativo', field='experienciaPrevia' )}" />
+                </div>
+
+                <div th:if="${usuario.tipoUsuario == 'Profesional'}" id="form-profesional">
+                    <!-- Campos específicos para Profesional -->
+                    <div th:replace="~{fragments/forms::inputRow(object='profesional', field='fechaIngreso' , inputClass='js-datepicker')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='profesional', field='titulo')}" />
+                </div>
+
+                <div th:if="${usuario.tipoUsuario == 'Cliente'}" id="form-cliente">
+                    <!-- Campos específicos para Profesional -->
+                    <div th:replace="~{fragments/forms::inputRow(object='cliente', field='apellidos')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='cliente', field='rut')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='cliente', field='direccion')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='cliente', field='comuna')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='cliente', field='edad')}" />
+                    <div th:replace="~{fragments/forms::inputRow(object='cliente', field='telefono')}" />
+
+                    <div class="row mb-3">
+                        <label class="col-md-2 col-form-label">
+                            <span>Sistema Salud</span>
+                        </label>
+                        <div class="col-md-10">
+                            <select class="col-md-8 form-control" th:value="${cliente.sistemaSalud}" name="sistemaSalud">
+                                <option value="1" th:selected="${cliente.sistemaSalud == 1}">FONASA</option>
+                                <option value="2" th:selected="${cliente.sistemaSalud == 2}">ISAPRE</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div th:replace="~{fragments/forms::inputRow(object='cliente', field='afp')}" />
+
+                </div>
+
+
                 <input type="submit" th:value="#{usuario.edit.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>
