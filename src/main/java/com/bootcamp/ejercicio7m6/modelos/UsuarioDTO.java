@@ -6,9 +6,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@Getter
 @Setter
+@Getter
+
 public class UsuarioDTO {
 
     private Long idUsuario;
@@ -21,10 +21,12 @@ public class UsuarioDTO {
     private String nombreUsuario;
 
     @NotNull
+    private String contrasena;
+
+    @NotNull
     @Size(max = 255)
     private String tipoUsuario;
 
-    @NotNull
-    private String contrasena;
+
 
 }

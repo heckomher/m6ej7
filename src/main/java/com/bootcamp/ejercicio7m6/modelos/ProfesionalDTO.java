@@ -16,10 +16,8 @@ public class ProfesionalDTO {
     @Size(max = 255)
     private String titulo;
 
-    @Size(max = 255)
+
     private LocalDate fechaIngreso;
-
-
 
     private Long usuario;
 

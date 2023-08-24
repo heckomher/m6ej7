@@ -18,7 +18,7 @@
                     <thead>
                         <tr>
                             <th th:text="#{usuario.idUsuario.label}" scope="col" />
-                            <th th:text="#{usuario.apellido.label}" scope="col" />
+
                             <th th:text="#{usuario.nombre.label}" scope="col" />
                             <th th:text="#{usuario.nombreUsuario.label}" scope="col" />
                             <th th:text="#{usuario.tipoUsuario.label}" scope="col" />
@@ -28,7 +28,7 @@
                     <tbody>
                         <tr th:each="usuario : ${usuarios}">
                             <td th:text="${usuario.idUsuario}" />
-                            <td th:text="${usuario.apellido}" />
+
                             <td th:text="${usuario.nombre}" />
                             <td th:text="${usuario.nombreUsuario}" />
                             <td th:text="${usuario.tipoUsuario}" />

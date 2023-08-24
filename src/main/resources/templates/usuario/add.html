@@ -18,7 +18,7 @@
         <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombre')}" />
 
         <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombreUsuario')}" />
-        <div th:replace="~{fragments/forms::inputRow(object='usuario', field='contrasena' type='password')}" />
+        <div th:replace="~{fragments/forms::inputRow(object='usuario', field='contrasena' , type='password')}" />
         <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario', type='select', inputClass='custom-class', __tipoUsuario__Values=${tipoUsuarioValues})}" />
 
         <div id="form-administrativo">
@@ -29,7 +29,7 @@
 
         <div id="form-profesional">
             <!-- Campos específicos para Profesional -->
-            <div th:replace="~{fragments/forms::inputRow(object='profesional', field='fechaIngreso')}" />
+            <div th:replace="~{fragments/forms::inputRow(object='profesional', field='fechaIngreso' , inputClass='js-datepicker')}" />
             <div th:replace="~{fragments/forms::inputRow(object='profesional', field='titulo')}" />
         </div>
 
@@ -40,9 +40,9 @@
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='comuna')}" />
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='edad')}" />
             <div th:replace="~{fragments/forms::inputRow(object='cliente', field='telefono')}" />
-            <div class="input-row">
+            <div class="row">
                 <label class="col-md-2 col-form-label">Sistema Salud</label>
-                <select class="col-md-10 form-control" name="sistemaSalud">
+                <select class="col-md-8 form-control" name="sistemaSalud">
                     <option value="1">FONASA</option>
                     <option value="2">ISAPRE</option>
                 </select>

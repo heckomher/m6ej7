@@ -18,16 +18,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Getter
 @Setter
+@Getter
 public class Usuario {
 
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
-
-
 
     @Column
     private String nombre;

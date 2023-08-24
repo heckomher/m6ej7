@@ -52,6 +52,9 @@ public class UsuarioServicio {
     public Long create(final UsuarioDTO usuarioDTO) {
         final Usuario usuario = new Usuario();
         mapToEntity(usuarioDTO, usuario);
+        usuario.setContrasena(usuarioDTO.getContrasena());
+        System.out.println("contrasena:" + usuario.getContrasena());
+        System.out.println("usuario:" + usuario.getNombreUsuario());
         return IUsuarioRepositorio.save(usuario).getIdUsuario();
     }
 
@@ -80,6 +83,7 @@ public class UsuarioServicio {
         usuario.setNombre(usuarioDTO.getNombre());
         usuario.setNombreUsuario(usuarioDTO.getNombreUsuario());
         usuario.setTipoUsuario(usuarioDTO.getTipoUsuario());
+        usuario.setContrasena(usuarioDTO.getContrasena());
         return usuario;
     }
 

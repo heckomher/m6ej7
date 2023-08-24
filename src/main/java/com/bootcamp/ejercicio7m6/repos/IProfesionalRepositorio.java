@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface IProfesionalRepositorio extends JpaRepository<Profesional, Long> {
 
     Profesional findFirstByUsuario(Usuario usuario);
-
+    boolean existsByUsuarioIdUsuario(Long idUsuario);
 }

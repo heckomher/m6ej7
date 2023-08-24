@@ -4,6 +4,9 @@ import com.bootcamp.ejercicio7m6.modelos.AdministrativoDTO;
 import com.bootcamp.ejercicio7m6.modelos.ClienteDTO;
 import com.bootcamp.ejercicio7m6.modelos.ProfesionalDTO;
 import com.bootcamp.ejercicio7m6.modelos.UsuarioDTO;
+import com.bootcamp.ejercicio7m6.servicios.AdministrativoServicio;
+import com.bootcamp.ejercicio7m6.servicios.ClienteServicio;
+import com.bootcamp.ejercicio7m6.servicios.ProfesionalServicio;
 import com.bootcamp.ejercicio7m6.servicios.UsuarioServicio;
 import com.bootcamp.ejercicio7m6.util.WebUtils;
 import jakarta.validation.Valid;
@@ -26,8 +29,15 @@ public class UsuarioController {
 
     private final UsuarioServicio usuarioServicio;
 
-    public UsuarioController(final UsuarioServicio usuarioServicio) {
+    private final ClienteServicio clienteServicio;
+    private final AdministrativoServicio administrativoServicio;
+    private final ProfesionalServicio profesionalServicio;
+
+    public UsuarioController(final UsuarioServicio usuarioServicio, ClienteServicio clienteServicio, AdministrativoServicio administrativoServicio, ProfesionalServicio profesionalServicio) {
         this.usuarioServicio = usuarioServicio;
+        this.clienteServicio = clienteServicio;
+        this.administrativoServicio = administrativoServicio;
+        this.profesionalServicio = profesionalServicio;
     }
 
     @GetMapping
@@ -49,28 +59,51 @@ public class UsuarioController {
         return Arrays.asList("Administrativo", "Cliente", "Profesional"); // Definir tus valores aquí
     }
 
-
-
     @PostMapping("/add")
     public String add(@ModelAttribute("usuario") @Valid final UsuarioDTO usuarioDTO,
                       @ModelAttribute("cliente") @Valid final ClienteDTO clienteDTO,
                       @ModelAttribute("administrativo") @Valid final AdministrativoDTO administrativoDTO,
                       @ModelAttribute("profesional") @Valid final ProfesionalDTO profesionalDTO,
                       final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+
         if (!bindingResult.hasFieldErrors("nombreUsuario") && usuarioServicio.nombreUsuarioExists(usuarioDTO.getNombreUsuario())) {
             bindingResult.rejectValue("nombreUsuario", "Exists.usuario.nombreUsuario");
         }
         if (bindingResult.hasErrors()) {
             return "usuario/add";
         }
-        usuarioServicio.create(usuarioDTO);
+
+        long idUsuario = usuarioServicio.create(usuarioDTO);
+
+        switch(usuarioDTO.getTipoUsuario()){
+            case "Administrativo":
+                administrativoDTO.setUsuario(idUsuario);
+                administrativoServicio.create(administrativoDTO);
+
+                break;
+            case "Profesional":
+                profesionalDTO.setUsuario(idUsuario);
+                profesionalServicio.create(profesionalDTO);
+
+                break;
+            case "Cliente":
+                clienteDTO.setUsuario(idUsuario);
+                clienteServicio.create(clienteDTO);
+
+                break;
+        }
+
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("usuario.create.success"));
         return "redirect:/usuarios";
     }
 
     @GetMapping("/edit/{idUsuario}")
     public String edit(@PathVariable final Long idUsuario, final Model model) {
+        //usuarioDTO
         model.addAttribute("usuario", usuarioServicio.get(idUsuario));
+        model.addAttribute("cliente", usuarioServicio.get(idUsuario));
+        model.addAttribute("profesional", usuarioServicio.get(idUsuario));
+        model.addAttribute("administrativo", usuarioServicio.get(idUsuario));
         return "usuario/edit";
     }
 
