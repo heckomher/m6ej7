@@ -68,7 +68,7 @@ public class UsuarioServicio {
 
     private UsuarioDTO mapToDTO(final Usuario usuario, final UsuarioDTO usuarioDTO) {
         usuarioDTO.setIdUsuario(usuario.getIdUsuario());
-        usuarioDTO.setApellido(usuario.getApellido());
+
         usuarioDTO.setNombre(usuario.getNombre());
         usuarioDTO.setNombreUsuario(usuario.getNombreUsuario());
         usuarioDTO.setTipoUsuario(usuario.getTipoUsuario());
@@ -76,7 +76,7 @@ public class UsuarioServicio {
     }
 
     private Usuario mapToEntity(final UsuarioDTO usuarioDTO, final Usuario usuario) {
-        usuario.setApellido(usuarioDTO.getApellido());
+
         usuario.setNombre(usuarioDTO.getNombre());
         usuario.setNombreUsuario(usuarioDTO.getNombreUsuario());
         usuario.setTipoUsuario(usuarioDTO.getTipoUsuario());

@@ -38,9 +38,9 @@ public class UsuarioController {
 
     @GetMapping("/add")
     public String add(@ModelAttribute("usuario") final UsuarioDTO usuarioDTO ,
-                      @ModelAttribute("usuarioAdministrativo") final AdministrativoDTO cadministrativoDTO ,
-                      @ModelAttribute("usuarioProfesional") final ProfesionalDTO profesionalDTO ,
-                      @ModelAttribute("usuarioCliente") final ClienteDTO clienteDTO) {
+                      @ModelAttribute("administrativo") final AdministrativoDTO cadministrativoDTO ,
+                      @ModelAttribute("profesional") final ProfesionalDTO profesionalDTO ,
+                      @ModelAttribute("cliente") final ClienteDTO clienteDTO) {
         return "usuario/add";
     }
 
@@ -53,6 +53,9 @@ public class UsuarioController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("usuario") @Valid final UsuarioDTO usuarioDTO,
+                      @ModelAttribute("cliente") @Valid final ClienteDTO clienteDTO,
+                      @ModelAttribute("administrativo") @Valid final AdministrativoDTO administrativoDTO,
+                      @ModelAttribute("profesional") @Valid final ProfesionalDTO profesionalDTO,
                       final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasFieldErrors("nombreUsuario") && usuarioServicio.nombreUsuarioExists(usuarioDTO.getNombreUsuario())) {
             bindingResult.rejectValue("nombreUsuario", "Exists.usuario.nombreUsuario");

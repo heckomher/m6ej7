@@ -27,8 +27,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
-    @Column
-    private String apellido;
+
 
     @Column
     private String nombre;

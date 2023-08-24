@@ -26,6 +26,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 formProfesional.style.display = "none";
                 formCliente.style.display = "none";
                 break;
+
+
+            default:
+                formAdministrativo.style.display = "none";
+                formProfesional.style.display = "none";
+                formCliente.style.display = "none";
+                break;
         }
     });
 });

@@ -14,9 +14,6 @@ public class UsuarioDTO {
     private Long idUsuario;
 
     @Size(max = 255)
-    private String apellido;
-
-    @Size(max = 255)
     private String nombre;
 
     @NotNull
