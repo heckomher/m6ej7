@@ -15,12 +15,12 @@
             <div th:replace="~{fragments/forms::globalErrors('capacitacion')}" />
             <form th:action="${T(com.bootcamp.ejercicio7m6.util.WebUtils).getRequest().requestURI}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='cantidadAsistentes', type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='nombre')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='detalle')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='lugar')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='diaSemana')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='duracion', inputClass='js-timepicker')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='hora', inputClass='js-timepicker')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='lugar')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='capacitacion', field='nombre')}" />
                 <input type="submit" th:value="#{capacitacion.edit.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>
