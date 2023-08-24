@@ -30,8 +30,16 @@
                     </div>
                 </div>
 
-                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='tipoUsuario' )}" th:disabled="true" />
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">
+                        <span>Perfil Usuario</span>
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text"
+                               name="tipoUsuario" class="form-control" readonly th:value="${usuario.tipoUsuario}"/>
 
+                    </div>
+                </div>
 
                 <div th:if="${usuario.tipoUsuario == 'Administrativo'}" id="form-administrativo">
                     <!-- Campos específicos para Administrativo -->
