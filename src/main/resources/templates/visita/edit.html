@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{usuario.edit.headline}" />
 </head>
 <body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 th:text="#{visita.edit.headline}" class="flex-grow-1" />
+        <div>
+            <a th:href="@{/visitas}" th:text="#{visita.edit.back}" class="btn btn-secondary" />
+        </div>
+    </div>
+    <div th:replace="~{fragments/forms::globalErrors('visita')}" />
 
+
+    <form th:action="${T(com.bootcamp.ejercicio7m6.util.WebUtils).getRequest().requestURI}" method="post">
+
+        <div th:replace="~{fragments/forms::inputRow(object='visita', field='fechaVisita', inputClass='js-datepicker')}" />
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">
+                <span>Cliente</span>
+            </label>
+            <div class="col-md-10">
+                <select class="col-md-8 form-control" name="cliente" th:value="${visita.cliente}">
+                    <option th:each="cliente : ${clientes}" th:value="${cliente.usuario}" th:text="${cliente.rut + ': ' + cliente.apellidos} "></option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">
+                <span>Detalle</span>
+            </label>
+            <div class="col-md-10">
+                <textarea class="col-md-8 form-control" name="detalle" rows="4" th:text="${visita.detalle}">
+
+                </textarea>
+
+
+            </div>
+        </div>
+
+
+
+        <input type="submit" th:value="#{visita.edit.headline}" class="btn btn-primary mt-4" />
+    </form>
+</div>
 </body>
 </html>

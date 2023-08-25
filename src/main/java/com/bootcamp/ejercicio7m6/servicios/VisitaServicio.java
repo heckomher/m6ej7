@@ -13,9 +13,12 @@ import com.bootcamp.ejercicio7m6.repos.IUsuarioRepositorio;
 import com.bootcamp.ejercicio7m6.repos.IClienteRepositorio;
 import com.bootcamp.ejercicio7m6.util.NotFoundException;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -50,6 +53,12 @@ public class VisitaServicio {
 
     public Long create(final VisitaDTO visitaDTO) {
         final Visita visita = new Visita();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Usuario us = IUsuarioRepositorio.findByNombreUsuario(currentPrincipalName);
+        visitaDTO.setUsuario(us.getIdUsuario());
+        System.out.println("usuario actual: " + us.getIdUsuario() );
         mapToEntity(visitaDTO, visita);
         return IVisitaRepositorio.save(visita).getIdVisita();
     }
@@ -67,7 +76,9 @@ public class VisitaServicio {
 
     private VisitaDTO mapToDTO(final Visita visita, final VisitaDTO visitaDTO) {
         visitaDTO.setUsuario(visita.getUsuario().getIdUsuario());
+        visitaDTO.setNombreUsuario(IUsuarioRepositorio.findById(visita.getUsuario().getIdUsuario()).orElseThrow().getNombreUsuario() );
         visitaDTO.setCliente(visita.getCliente().getIdUsuario());
+        visitaDTO.setRutCliente(IUsuarioRepositorio.findById(visita.getCliente().getIdUsuario()).orElseThrow().getUsuarioClientes().getRut() );
         visitaDTO.setDetalle(visita.getDetalle());
         visitaDTO.setIdVisita(visita.getIdVisita());
         visitaDTO.setFechaVisita(visita.getFechaVisita());

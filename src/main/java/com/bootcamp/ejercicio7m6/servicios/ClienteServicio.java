@@ -25,6 +25,7 @@ public class ClienteServicio {
 
     public List<ClienteDTO> findAll() {
         final List<Cliente> clientes = IClienteRepositorio.findAll(Sort.by("idCliente"));
+
         return clientes.stream()
                 .map(cliente -> mapToDTO(cliente, new ClienteDTO()))
                 .toList();

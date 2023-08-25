@@ -19,8 +19,9 @@
             <tr>
                 <th th:text="#{visita.idVisita.label}" scope="col" />
                 <th th:text="#{visita.fechaVisita.label}" scope="col" />
+
                 <th th:text="#{visita.detalle.label}" scope="col" />
-                <th th:text="#{visita.cliente.label}" scope="col" />
+                <th th:text="#{visita.rutcliente.label}" scope="col" />
                 <th th:text="#{visita.usuario.label}" scope="col" />
 
                 <th><!-- --></th>
@@ -31,8 +32,8 @@
                 <td th:text="${visita.idVisita}" />
                 <td th:text="${visita.fechaVisita}" />
                 <td th:text="${visita.detalle}" />
-                <td th:text="${visita.cliente}" />
-                <td th:text="${visita.usuario}" />
+                <td th:text="${visita.rutCliente}" />
+                <td th:text="${visita.getNombreUsuario()}" />
 
                 <td>
                     <div class="float-end text-nowrap">
