@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{checklist.list.headline}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 th:text="#{checklist.list.headline}" class="flex-grow-1" />
+        <div>
+            <a th:href="@{/checklists/add}" th:text="#{checklist.list.createNew}" class="btn btn-primary ms-2" />
+        </div>
+    </div>
+    <div th:if="${checklists.empty}" th:text="#{checklist.list.empty}" />
+    <div th:if="${!checklists.empty}" class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+            <tr>
+                <th th:text="#{checklist.idChecklist.label}" scope="col" />
+                <th th:text="#{checklist.descripcion.label}" scope="col" />
+                <th><!-- --></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="checklist : ${checklists}">
+                <td th:text="${checklist.idChecklist}" />
+                <td th:text="${checklist.descripcion}" />
+                <td>
+                    <div class="float-end text-nowrap">
+                        <a th:href="@{/checklists/edit/{idChecklist}(idChecklist=${checklist.idChecklist})}" th:text="#{checklist.list.edit}" class="btn btn-sm btn-info" />
+                        <form th:action="@{/checklists/delete/{idChecklist}(idChecklist=${checklist.idChecklist})}"
+                              th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                            <button th:text="#{checklist.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

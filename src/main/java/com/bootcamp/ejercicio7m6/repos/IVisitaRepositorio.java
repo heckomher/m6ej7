@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IVisitaRepositorio extends JpaRepository<Visita, Long> {
 
-    //Profesional findFirstByUsuario(Usuario usuario);
+    Visita findFirstByUsuario(Usuario usuario);
+    Visita findFirstByCliente(Usuario cliente);
     //boolean existsByUsuarioIdUsuario(Long idUsuario);
 }

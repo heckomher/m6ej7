@@ -21,4 +21,7 @@ public class VisitaDTO {
     private Long usuario;
     private Long cliente;
 
+    private String nombreUsuario;
+    private String rutCliente;
+
 }

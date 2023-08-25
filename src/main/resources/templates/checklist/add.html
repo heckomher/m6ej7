@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{checklist.add.headline}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 th:text="#{checklist.add.headline}" class="flex-grow-1" />
+        <div>
+            <a th:href="@{/checklists}" th:text="#{checklist.list.back}" class="btn btn-primary ms-2" />
+        </div>
+    </div>
+
+    <div>
+        <!-- Replace this with your add form content -->
+        <form th:action="@{/checklists/save}" method="post">
+            <label>Description: </label>
+            <input type="text" th:name="descripcion" />
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
