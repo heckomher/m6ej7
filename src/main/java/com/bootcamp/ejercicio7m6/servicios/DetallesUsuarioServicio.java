@@ -50,7 +50,6 @@ public class DetallesUsuarioServicio implements UserDetailsService {
                 .map( role -> new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()))
                 .collect(Collectors.toList());
 
-
         return authorities;
     }
 

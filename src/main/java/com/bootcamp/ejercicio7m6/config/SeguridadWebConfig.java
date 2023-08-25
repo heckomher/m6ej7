@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,12 +40,14 @@ public class SeguridadWebConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
-                                .requestMatchers(antMatcher("/usuario**")).hasRole("Administrativo")
+                                .requestMatchers(antMatcher("/usuario**")).hasRole("ADMINISTRATIVO")
+                                .requestMatchers(antMatcher("/capacitacion**")).hasRole("CLIENTE")
+                                .requestMatchers(antMatcher("/contacto**")).hasRole("CLIENTE")
                                 .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(Customizer.withDefaults())
-                /*
+                //.formLogin(Customizer.withDefaults())
+
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
@@ -55,9 +58,18 @@ public class SeguridadWebConfig {
                                 .permitAll()
                                 .logoutUrl("/logout")  // Ruta para realizar el logout
                                 .logoutSuccessUrl("/login")  // Ruta a la que redirigir después del logout
-                )*/
+                )
                 .httpBasic(Customizer.withDefaults());
 
+        return http.build();
+    }
+
+    @Bean
+    SecurityFilterChain authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception{
+        http
+                .getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
         return http.build();
     }
 }
