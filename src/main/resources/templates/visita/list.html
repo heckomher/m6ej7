@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{visita.list.headline}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 th:text="#{visita.list.headline}" class="flex-grow-1" />
+        <div>
+            <a th:href="@{/visitas/add}" th:text="#{visita.list.createNew}" class="btn btn-primary ms-2" />
+        </div>
+    </div>
+    <div th:if="${visitas.empty}" th:text="#{visita.list.empty}" />
+    <div th:if="${!visitas.empty}" class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+            <tr>
+                <th th:text="#{visita.idVisita.label}" scope="col" />
+                <th th:text="#{visita.fechaVisita.label}" scope="col" />
+                <th th:text="#{visita.detalle.label}" scope="col" />
+                <th th:text="#{visita.cliente.label}" scope="col" />
+                <th th:text="#{visita.usuario.label}" scope="col" />
+
+                <th><!-- --></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="visita : ${visitas}">
+                <td th:text="${visita.idVisita}" />
+                <td th:text="${visita.fechaVisita}" />
+                <td th:text="${visita.detalle}" />
+                <td th:text="${visita.cliente}" />
+                <td th:text="${visita.usuario}" />
+
+                <td>
+                    <div class="float-end text-nowrap">
+                        <a th:href="@{/visitas/edit/{idVisita}(idVisita=${visita.idVisita})}" th:text="#{visita.list.edit}" class="btn btn-sm btn-info" />
+                        <form th:action="@{/visitas/delete/{idVisita}(idVisita=${visita.idVisita})}"
+                              th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                            <button th:text="#{visita.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

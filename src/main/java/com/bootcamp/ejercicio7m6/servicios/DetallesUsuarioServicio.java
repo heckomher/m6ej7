@@ -41,7 +41,7 @@ public class DetallesUsuarioServicio implements UserDetailsService {
                 usuario.getContrasena(),
                 true, true, true, true,
                 mapRolesToAuthorities(usuario.getTipoUsuario())
-                );
+        );
 
     }
 
@@ -70,4 +70,3 @@ public class DetallesUsuarioServicio implements UserDetailsService {
     }*/
 
 }
-

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class UsuarioServicio {
+public class UsuarioServicio{
 
     private final IUsuarioRepositorio IUsuarioRepositorio;
     private final IAdministrativoRepositorio IAdministrativoRepositorio;
