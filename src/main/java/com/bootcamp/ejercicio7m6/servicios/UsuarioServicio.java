@@ -43,7 +43,7 @@ public class UsuarioServicio {
                 .toList();
     }
 
-    public Usuario findById(long idUsuario){
+    public Usuario findById(long idUsuario) {
         return IUsuarioRepositorio.findById(idUsuario).orElseThrow();
     }
 
