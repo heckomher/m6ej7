@@ -19,20 +19,28 @@
             <tr>
                 <th th:text="#{checklist.idChecklist.label}" scope="col" />
                 <th th:text="#{checklist.descripcion.label}" scope="col" />
+                <th th:text="#{checklist.visita.label}" scope="col" />
+                <th th:text="#{checklist.fechaCheck.label}" scope="col" />
+                <th th:text="#{checklist.nombreUsuario.label}" scope="col" />
+                <th th:text="#{checklist.estado.label}" scope="col" />
                 <th><!-- --></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="checklist : ${checklists}">
-                <td th:text="${checklist.idChecklist}" />
+                <td th:text="${checklist.id}" />
                 <td th:text="${checklist.descripcion}" />
+                <td><a th:href="@{/visitas/edit/{idVisita}(idVisita=${checklist.visita})}" th:text="${checklist.visita}" class="span span-sm" /></td>>
+                <td th:text="${checklist.fechaCheck}" />
+                <td th:text="${checklist.nombreUsuario}" />
+                <td th:text="${checklist.estado}" />
                 <td>
                     <div class="float-end text-nowrap">
-                        <a th:href="@{/checklists/edit/{idChecklist}(idChecklist=${checklist.idChecklist})}" th:text="#{checklist.list.edit}" class="btn btn-sm btn-info" />
-                        <form th:action="@{/checklists/delete/{idChecklist}(idChecklist=${checklist.idChecklist})}"
+                        <a th:href="@{/checklists/edit/{id}(id=${checklist.id})}" th:text="#{checklist.list.edit}" class="btn btn-sm btn-info" />
+                        <!--<form th:action="@{/checklists/delete/{idChecklist}(idChecklist=${checklist.idChecklist})}"
                               th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
                             <button th:text="#{checklist.list.delete}" type="submit" class="btn btn-sm btn-danger" />
-                        </form>
+                        </form>-->
                     </div>
                 </td>
             </tr>

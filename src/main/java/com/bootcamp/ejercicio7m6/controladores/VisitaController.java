@@ -88,19 +88,4 @@ public class VisitaController {
     }
 
 
-
-/*
-    @PostMapping("/delete/{idUsuario}")
-    public String delete(@PathVariable final Long idUsuario,
-                         final RedirectAttributes redirectAttributes) {
-        final String referencedWarning = usuarioServicio.getReferencedWarning(idUsuario);
-        if (referencedWarning != null) {
-            redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR, referencedWarning);
-        } else {
-            usuarioServicio.delete(idUsuario);
-            redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("usuario.delete.success"));
-        }
-        return "redirect:/usuarios";
-    }
-*/
 }

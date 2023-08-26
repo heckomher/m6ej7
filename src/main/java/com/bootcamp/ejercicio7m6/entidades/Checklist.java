@@ -46,6 +46,6 @@ public class Checklist {
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
 
-    // Constructors
+
 
 }

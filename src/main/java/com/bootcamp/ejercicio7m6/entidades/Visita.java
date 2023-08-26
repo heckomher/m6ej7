@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -44,5 +47,8 @@ public class Visita {
     @LastModifiedDate
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
+
+    @OneToMany(mappedBy = "visita", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Checklist> checklists = new ArrayList<>();
 
 }

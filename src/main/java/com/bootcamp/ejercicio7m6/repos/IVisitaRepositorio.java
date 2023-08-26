@@ -10,5 +10,6 @@ public interface IVisitaRepositorio extends JpaRepository<Visita, Long> {
 
     Visita findFirstByUsuario(Usuario usuario);
     Visita findFirstByCliente(Usuario cliente);
+
     //boolean existsByUsuarioIdUsuario(Long idUsuario);
 }

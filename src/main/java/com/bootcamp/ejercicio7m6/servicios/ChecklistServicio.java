@@ -60,6 +60,7 @@ public class ChecklistServicio {
 
 
     private ChecklistDTO mapToDTO(final Checklist checklist, final ChecklistDTO checkListDTO) {
+        checkListDTO.setId(checklist.getId());
         checkListDTO.setUsuario(checklist.getUsuario().getIdUsuario());
         checkListDTO.setVisita( checklist.getVisita().getIdVisita());
         checkListDTO.setNombreUsuario(IUsuarioRepositorio.findById(checklist.getUsuario().getIdUsuario()).orElseThrow().getNombreUsuario() );
@@ -70,7 +71,7 @@ public class ChecklistServicio {
         return checkListDTO;
     }
 
-    private Visita mapToEntity(final ChecklistDTO checklistDTO, final Checklist checklist) {
+    private Checklist mapToEntity(final ChecklistDTO checklistDTO, final Checklist checklist) {
         checklist.setFechaCheck(checklistDTO.getFechaCheck());
         checklist.setDescripcion(checklistDTO.getDescripcion());
 
@@ -81,12 +82,9 @@ public class ChecklistServicio {
 
         checklist.setUsuario( usuario );
         checklist.setVisita(visita);
-        return visita;
+        checklist.setEstado(checklistDTO.getEstado());
+        return checklist;
     }
 
-    /*public boolean usuarioExists(final Long idUsuario) {
-        return IProfesionalRepositorio.existsByUsuarioIdUsuario(idUsuario);
-    }*/
-
+    // Puedes agregar más métodos según tus necesidades, como actualización, búsqueda, etc.
 }
-

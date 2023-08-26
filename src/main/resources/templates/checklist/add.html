@@ -9,18 +9,53 @@
     <div class="d-flex flex-wrap mb-4">
         <h1 th:text="#{checklist.add.headline}" class="flex-grow-1" />
         <div>
-            <a th:href="@{/checklists}" th:text="#{checklist.list.back}" class="btn btn-primary ms-2" />
+            <a th:href="@{/checklists}" th:text="#{checklist.add.back}" class="btn btn-secondary" />
         </div>
     </div>
+    <div th:replace="~{fragments/forms::globalErrors('checklist')}" />
+    <form th:action="${T(com.bootcamp.ejercicio7m6.util.WebUtils).getRequest().requestURI}" method="post">
 
-    <div>
-        <!-- Replace this with your add form content -->
-        <form th:action="@{/checklists/save}" method="post">
-            <label>Description: </label>
-            <input type="text" th:name="descripcion" />
-            <button type="submit" class="btn btn-primary">Add</button>
-        </form>
-    </div>
+        <div th:replace="~{fragments/forms::inputRow(object='checklist', field='fechaCheck', inputClass='js-datepicker')}" />
+
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">
+                <span>Visita</span>
+            </label>
+            <div class="col-md-10">
+                <select class="col-md-8 form-control" name="visita">
+                    <option th:each="visita : ${visitas}" th:value="${visita.idVisita}" th:text="${visita.rutCliente + ': ' + visita.detalle} "></option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">
+                <span>Descripción</span>
+            </label>
+            <div class="col-md-10">
+                <textarea class="col-md-8 form-control" name="descripcion" rows="4">
+
+                </textarea>
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">
+                <span>Estado</span>
+            </label>
+            <div class="col-md-10">
+                <select class="col-md-8 form-control" name="estado">
+                    <option value="1">APROBAR</option>
+                    <option value="2">RECHAZAR</option>
+                </select>
+            </div>
+        </div>
+
+
+        <input type="submit" th:value="#{checklist.add.headline}" class="btn btn-primary mt-4" />
+    </form>
 </div>
 </body>
 </html>
