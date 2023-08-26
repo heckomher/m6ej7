@@ -45,6 +45,7 @@ public class SeguridadWebConfig {
                                 .requestMatchers(antMatcher("/contacto**")).hasRole("CLIENTE")
                                 .requestMatchers(antMatcher("/visita**")).hasRole("PROFESIONAL")
                                 .requestMatchers(antMatcher("/pago**")).hasRole("ADMINISTRATIVO")
+                                .requestMatchers(antMatcher("/checklist**")).hasRole("PROFESIONAL")
                                 .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

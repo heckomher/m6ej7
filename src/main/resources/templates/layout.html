@@ -34,12 +34,12 @@
                                 <a th:text="#{navigation.entities}" class="nav-link dropdown-toggle" href="#" id="navbarEntitiesLink" role="button"
                                         data-bs-toggle="dropdown" aria-expanded="false" />
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarEntitiesLink">
-                                    <li><a th:href="@{/capacitaciones}" th:text="#{capacitacion.list.headline}" class="dropdown-item" /></li>
-                                    <li><a th:href="@{/contactos}" th:text="#{contacto.list.headline}" class="dropdown-item" /></li>
-                                    <li><a th:href="@{/pagos}" th:text="#{pago.list.headline}" class="dropdown-item" /></li>
-                                    <li><a th:href="@{/usuarios}" th:text="#{usuario.list.headline}" class="dropdown-item" /></li>
-                                    <li><a th:href="@{/visitas}" th:text="#{visita.list.headline}" class="dropdown-item" /></li>
-                                    <li><a th:href="@{/checklists}" th:text="#{checklist.list.headline}" class="dropdown-item" /></li>
+                                    <div sec:authorize="hasRole('ROLE_CLIENTE')"> <li ><a th:href="@{/capacitaciones}" th:text="#{capacitacion.list.headline}" class="dropdown-item" /></li></div>
+                                    <div sec:authorize="hasRole('ROLE_CLIENTE')"><li><a th:href="@{/contactos/add}" th:text="#{contacto.list.headline}" class="dropdown-item" /></li></div>
+                                    <div sec:authorize="hasRole('ROLE_ADMINISTRATIVO')"><li><a th:href="@{/pagos}" th:text="#{pago.list.headline}" class="dropdown-item" /></li></div>
+                                    <div sec:authorize="hasRole('ROLE_ADMINISTRATIVO')"><li><a th:href="@{/usuarios}" th:text="#{usuario.list.headline}" class="dropdown-item" /></li></div>
+                                    <div sec:authorize="hasRole('ROLE_PROFESIONAL')"><li><a th:href="@{/visitas}" th:text="#{visita.list.headline}" class="dropdown-item" /></li></div>
+                                    <div sec:authorize="hasRole('ROLE_PROFESIONAL')"><li><a th:href="@{/checklists}" th:text="#{checklist.list.headline}" class="dropdown-item" /></li></div>
                                 </ul>
                             </li>
 
