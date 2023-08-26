@@ -15,7 +15,15 @@
             <div th:replace="~{fragments/forms::globalErrors('contacto')}" />
             <form th:action="${T(com.bootcamp.ejercicio7m6.util.WebUtils).getRequest().requestURI}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='contacto', field='correo')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='contacto', field='mensaje')}" />
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">
+                        <span>Mensaje</span>
+                    </label>
+                    <div class="col-md-10">
+                        <textarea class="col-md-8 form-control" name="mensaje" rows="5">
+                        </textarea>
+                    </div>
+                </div>
                 <div th:replace="~{fragments/forms::inputRow(object='contacto', field='nombre')}" />
                 <input type="submit" th:value="#{contacto.add.headline}" class="btn btn-primary mt-4" />
             </form>

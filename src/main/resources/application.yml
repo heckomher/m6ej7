@@ -23,6 +23,11 @@ spring:
             non_contextual_creation: true
         id:
           new_generator_mappings: true
+  sql:
+    init:
+      data-locations:
+        - classpath:sql/script.sql
+      mode: embedded
   mvc:
     format:
       date: yyyy-MM-dd
