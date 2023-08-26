@@ -77,54 +77,20 @@ public class VisitaController {
     }
 
 
-    /*
-    @PostMapping("/edit/{idUsuario}")
-    public String edit(@PathVariable final Long idUsuario,
-                       @ModelAttribute("usuario") @Valid final UsuarioDTO usuarioDTO,
-                       @ModelAttribute("cliente") @Valid final ClienteDTO clienteDTO,
-                       @ModelAttribute("administrativo") @Valid final AdministrativoDTO administrativoDTO,
-                       @ModelAttribute("profesional") @Valid final ProfesionalDTO profesionalDTO,
+    @PostMapping("/edit/{idVisita}")
+    public String edit(@PathVariable final Long idVisita,
+                       @ModelAttribute("visita") @Valid final VisitaDTO visitaDTO,
 
                        final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
-        final UsuarioDTO currentUsuarioDTO = usuarioServicio.get(idUsuario);
-        if (!bindingResult.hasFieldErrors("nombreUsuario") &&
-                !usuarioDTO.getNombreUsuario().equalsIgnoreCase(currentUsuarioDTO.getNombreUsuario()) &&
-                usuarioServicio.nombreUsuarioExists(usuarioDTO.getNombreUsuario())) {
-            bindingResult.rejectValue("nombreUsuario", "Exists.usuario.nombreUsuario");
-        }
-        if (bindingResult.hasErrors()) {
-            return "usuario/edit";
-        }
 
-        usuarioServicio.update(idUsuario, usuarioDTO);
+        visitaServicio.update(idVisita, visitaDTO );
 
-        switch(usuarioDTO.getTipoUsuario()){
-            case "Administrativo":
-                administrativoDTO.setUsuario(idUsuario);
-                long idAdministrativo = usuarioServicio.findById(idUsuario).getUsuarioAdministrativo().getIdAdministrativo();
-                administrativoServicio.update(idAdministrativo , administrativoDTO);
-
-                break;
-            case "Profesional":
-                profesionalDTO.setUsuario(idUsuario);
-                long idProfesional = usuarioServicio.findById(idUsuario).getUsuarioProfesionales().getIdProfesional();
-                profesionalServicio.update(idProfesional , profesionalDTO);
-
-                break;
-            case "Cliente":
-                clienteDTO.setUsuario(idUsuario);
-                long idCliente = usuarioServicio.findById(idUsuario).getUsuarioClientes().getIdCliente();
-                clienteServicio.update(idCliente , clienteDTO);
-
-                break;
-        }
-
-
-
-        redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("usuario.update.success"));
-        return "redirect:/usuarios";
+        redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("visita.update.success"));
+        return "redirect:/visitas";
     }
 
+
+/*
     @PostMapping("/delete/{idUsuario}")
     public String delete(@PathVariable final Long idUsuario,
                          final RedirectAttributes redirectAttributes) {

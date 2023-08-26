@@ -40,7 +40,7 @@
                         <a th:href="@{/visitas/edit/{idVisita}(idVisita=${visita.idVisita})}" th:text="#{visita.list.edit}" class="btn btn-sm btn-info" />
                         <form th:action="@{/visitas/delete/{idVisita}(idVisita=${visita.idVisita})}"
                               th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
-                            <button th:text="#{visita.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                            <!--<button th:text="#{visita.list.delete}" type="submit" class="btn btn-sm btn-danger" />-->
                         </form>
                     </div>
                 </td>

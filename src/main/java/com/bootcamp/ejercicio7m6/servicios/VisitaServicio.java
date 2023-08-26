@@ -58,7 +58,7 @@ public class VisitaServicio {
         String currentPrincipalName = authentication.getName();
         Usuario us = IUsuarioRepositorio.findByNombreUsuario(currentPrincipalName);
         visitaDTO.setUsuario(us.getIdUsuario());
-        System.out.println("usuario actual: " + us.getIdUsuario() );
+
         mapToEntity(visitaDTO, visita);
         return IVisitaRepositorio.save(visita).getIdVisita();
     }
@@ -66,6 +66,10 @@ public class VisitaServicio {
     public void update(final Long idVisita, final VisitaDTO visitaDTO) {
         final Visita visita = IVisitaRepositorio.findById(idVisita)
                 .orElseThrow(NotFoundException::new);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Usuario us = IUsuarioRepositorio.findByNombreUsuario(currentPrincipalName);
+        visitaDTO.setUsuario(us.getIdUsuario());
         mapToEntity(visitaDTO, visita);
         IVisitaRepositorio.save(visita);
     }
