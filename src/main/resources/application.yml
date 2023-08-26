@@ -41,7 +41,3 @@ spring:
     servlet:
       content-type: text/html
     cache: false
-  security:
-    user:
-      name: admin
-      password: 123456

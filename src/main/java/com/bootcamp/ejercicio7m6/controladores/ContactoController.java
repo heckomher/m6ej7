@@ -25,12 +25,12 @@ public class ContactoController {
         this.contactoServicio = contactoServicio;
     }
 
-    @GetMapping
+    /*@GetMapping
     public String list(final Model model) {
         model.addAttribute("contactos", contactoServicio.findAll());
         return "contacto/list";
     }
-
+    */
     @GetMapping("/add")
     public String add(@ModelAttribute("contacto") final ContactoDTO contactoDTO) {
         return "contacto/add";
@@ -42,11 +42,12 @@ public class ContactoController {
         if (bindingResult.hasErrors()) {
             return "contacto/add";
         }
+        System.out.println("Contacto recibido: " + contactoDTO.toString());
         contactoServicio.create(contactoDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("contacto.create.success"));
-        return "redirect:/contactos";
+        return "redirect:/contactos/add";
     }
-
+    /*
     @GetMapping("/edit/{idContacto}")
     public String edit(@PathVariable final Integer idContacto, final Model model) {
         model.addAttribute("contacto", contactoServicio.get(idContacto));
@@ -72,5 +73,5 @@ public class ContactoController {
         redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("contacto.delete.success"));
         return "redirect:/contactos";
     }
-
+*/
 }

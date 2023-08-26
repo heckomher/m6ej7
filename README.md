@@ -1,9 +1,9 @@
-# Ejercicio7m6
+# Sprint Módulo 6
 
-This app was created with Bootify.io - tips on working with the code [can be found here](https://bootify.io/next-steps/).
-Feel free to contact us for further questions.
+Esta aplicación fue creada usando Java 17, Spring Boot 3.1.2, Maven 4.0.0, Thymeleaf 3.1.1, Bootstrap 5.1.3 y MySQL 8.0.33, Spring Security 6.1.2
 
-## Development
+
+## Despliegue
 
 ### Base de Datos
 Actualiza tu conexión local o remota a la base de datos dentro de `application.yml`  o define las siguientes variables de entorno:
@@ -18,10 +18,41 @@ DB_SCHEMA= por defecto es: sprint7_sala3;
 Si lo estás ejecutando en local, asegúrate que el IDE detecta todos los archivos en **codificación UTF-8**.
 
 
-Lombok must be supported by your IDE. For IntelliJ install the Lombok plugin and enable annotation processing -
-[learn more](https://bootify.io/next-steps/spring-boot-with-lombok.html).
+Se hace uso intensivo de la biblioteca Lombok, asegúrate de tener instalada la extensión en tu IDE.
+### Usuarios por defecto
+Los usuarios por defecto son:
 
-After starting the application it is accessible under `localhost:8080`.
+
+| Usuario | Clave  | Perfil         |
+|---------|--------|----------------|
+| admin   | 123456 | Administrativo |
+| carito  | 123456 | Cliente        |
+| julio   | 123456 | Profesional    |
+
+
+## Consideraciones de seguridad
+
+Las contraseñas se están almacenando dentro de la base de datos en texto plano, por lo que se recomienda añadir sistemas de cifrado si pretende usar esta aplicación en producción.
+
+
+## **A continuación se describen las funcionalidades:**
+
+### 1.- Login o Acceso de usuarios:
+
+Los usuarios puede iniciar sesión utilizando un nombre de usuario y contraseña.
+Se admite el acceso para tres roles de usuario: Administativo, Cliente y Profesional , cada uno con sus acceso según su tipo de usuario.
+
+### 2.- Página de Inicio del portal:
+
+Una vez autenticado el usuario puede acceder a la página de inicio de portal.
+La página de inicio ofrece diferentes opciones y enlaces dependiendo del rol de usuario.
+
+### 3.- Formulario de Contacto:
+
+Solo el usuario de tipo Cliente tiene acceso al formulario de Contacto para realizar consultas.
+El formulario permite registrar datos de contacto.
+
+### 4.- Formulario de Creación de Capacitaciones:
 
 Solo el cliente tiene acceso al formulario para Crear Capacitación.
 Se proporciona un listado de capacitaciones registradas.
