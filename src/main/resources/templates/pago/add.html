@@ -18,10 +18,10 @@
         <div th:replace="~{fragments/forms::inputRow(object='pago', field='fechaPago', inputClass='js-datepicker')}"></div>
         <div class="row mb-3">
             <label class="col-md-2 col-form-label">
-                <span th:text="#{pago.idCliente.label}">*</span>
+                <span th:text="#{pago.usuario.label}">*</span>
             </label>
             <div class="col-md-10">
-                <select class="col-md-8 form-control" name="idCliente">
+                <select class="col-md-8 form-control" name="usuario">
                     <option value="" th:text="#{select.empty.label}" />
                     <option th:each="cliente : ${clientes}" th:value="${cliente.usuario}" th:text="${cliente.rut + ':' + cliente.apellidos}" />
                 </select>

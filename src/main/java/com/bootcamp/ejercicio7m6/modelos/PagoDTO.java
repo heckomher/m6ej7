@@ -14,7 +14,7 @@ public class PagoDTO {
 
     private Integer monto;
     private LocalDate fechaPago;
-    private Long idUsuario;
+    private Long usuario;
 
     private String nombreUsuario;
     private String rutCliente;

@@ -20,7 +20,7 @@
                 <th th:text="#{pago.idPago.label}" scope="col" />
                 <th th:text="#{pago.monto.label}" scope="col" />
                 <th th:text="#{pago.fechaPago.label}" scope="col" />
-                <th th:text="#{pago.idCliente.label}" scope="col" />
+                <th th:text="#{pago.usuario.label}" scope="col" />
                 <th><!-- --></th>
             </tr>
             </thead>
@@ -29,11 +29,11 @@
                 <td th:text="${pago.idPago}" />
                 <td th:text="${pago.monto}" />
                 <td th:text="${pago.fechaPago}" />
-                <td th:text="${pago.idCliente}" />
+                <td th:text="${pago.usuario}" />
                 <td>
                     <div class="float-end text-nowrap">
                         <a th:href="@{/pago/edit/{idPago}(idPago=${pago.idPago})}" th:text="#{pago.list.edit}" class="btn btn-sm btn-info" />
-                        <form th:action="@{/pago/delete/{idPago}(numCapacitacion=${pago.idPago})}"
+                        <form th:action="@{/pago/delete/{idPago}(idPago=${pago.idPago})}"
                               th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
                             <button th:text="#{pago.list.delete}" type="submit" class="btn btn-sm btn-danger" />
                         </form>

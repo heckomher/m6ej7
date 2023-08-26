@@ -18,8 +18,7 @@ import java.util.List;
 @Service
 public class PagoServicio {
     private final IPagoRepositorio pagoRepositorio;
-    private final com.bootcamp.ejercicio7m6.repos.IUsuarioRepositorio IUsuarioRepositorio;
-
+    private final IUsuarioRepositorio IUsuarioRepositorio;
 
     public PagoServicio(final IPagoRepositorio pagoRepositorio, IUsuarioRepositorio IUsuarioRepositorio) {
         this.pagoRepositorio = pagoRepositorio;
@@ -45,10 +44,9 @@ public class PagoServicio {
 
 
         final Pago savedPago = pagoRepositorio.save(pago);
-        Usuario usuario = IUsuarioRepositorio.findById(pagoDTO.getIdUsuario())
+        Usuario usuario = IUsuarioRepositorio.findById(pagoDTO.getUsuario())
                 .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
-        usuario.getPagos().add(savedPago);
-        IUsuarioRepositorio.save(usuario);
+            IUsuarioRepositorio.save(usuario);
         return savedPago.getIdPago();
     }
 
@@ -66,7 +64,7 @@ public class PagoServicio {
         pagoDTO.setIdPago(pago.getIdPago());
         pagoDTO.setMonto(pago.getMonto());
         pagoDTO.setFechaPago(pago.getFechaPago());
-        pagoDTO.setIdUsuario(pago.getIdUsuario().getIdUsuario());
+        pagoDTO.setUsuario(pago.getUsuario().getIdUsuario());
         return pagoDTO;
     }
 
@@ -74,9 +72,9 @@ public class PagoServicio {
                              final Pago pago) {
         pago.setMonto(pagoDTO.getMonto());
         pago.setFechaPago(pagoDTO.getFechaPago());
-        final Usuario usuario = pagoDTO.getIdUsuario() == null ? null : IUsuarioRepositorio.findById(pagoDTO.getIdUsuario())
+        final Usuario usuario = pagoDTO.getUsuario() == null ? null : IUsuarioRepositorio.findById(pagoDTO.getUsuario())
                 .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
-        pago.setIdUsuario(usuario);
+        pago.setUsuario(usuario);
         return pago;
     }
 

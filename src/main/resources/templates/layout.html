@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
     <head>
         <title th:text="#{app.title}" layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE" />
         <meta charset="utf-8" />
@@ -35,6 +36,7 @@
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarEntitiesLink">
                                     <li><a th:href="@{/capacitaciones}" th:text="#{capacitacion.list.headline}" class="dropdown-item" /></li>
                                     <li><a th:href="@{/contactos}" th:text="#{contacto.list.headline}" class="dropdown-item" /></li>
+                                    <li><a th:href="@{/pagos}" th:text="#{pago.list.headline}" class="dropdown-item" /></li>
                                     <li><a th:href="@{/usuarios}" th:text="#{usuario.list.headline}" class="dropdown-item" /></li>
                                     <li><a th:href="@{/visitas}" th:text="#{visita.list.headline}" class="dropdown-item" /></li>
                                 </ul>
