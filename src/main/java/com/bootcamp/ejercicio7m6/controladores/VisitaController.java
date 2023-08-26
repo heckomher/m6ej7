@@ -1,6 +1,9 @@
 package com.bootcamp.ejercicio7m6.controladores;
 
-import com.bootcamp.ejercicio7m6.modelos.*;
+import com.bootcamp.ejercicio7m6.modelos.AdministrativoDTO;
+import com.bootcamp.ejercicio7m6.modelos.ClienteDTO;
+import com.bootcamp.ejercicio7m6.modelos.ProfesionalDTO;
+import com.bootcamp.ejercicio7m6.modelos.UsuarioDTO;
 import com.bootcamp.ejercicio7m6.servicios.*;
 import com.bootcamp.ejercicio7m6.util.WebUtils;
 import jakarta.validation.Valid;
@@ -57,14 +60,27 @@ public class VisitaController {
     public String add(@ModelAttribute("visita") @Valid final VisitaDTO visitaDTO,
                       final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
 
+        if (!bindingResult.hasFieldErrors("nombreUsuario") && usuarioServicio.nombreUsuarioExists(usuarioDTO.getNombreUsuario())) {
+            bindingResult.rejectValue("nombreUsuario", "Exists.usuario.nombreUsuario");
+        }
+        if (bindingResult.hasErrors()) {
+            return "usuario/add";
+        }
 
         long idVisita = visitaServicio.create(visitaDTO);
 
+        switch(usuarioDTO.getTipoUsuario()){
+            case "Administrativo":
+                administrativoDTO.setUsuario(idUsuario);
+                administrativoServicio.create(administrativoDTO);
 
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("visita.create.success"));
         return "redirect:/visitas";
     }
 
+        redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("usuario.create.success"));
+        return "redirect:/usuarios";
+    }
 
     @GetMapping("/edit/{idVisita}")
     public String edit(@PathVariable final Long idVisita, final Model model) {
@@ -77,13 +93,9 @@ public class VisitaController {
     }
 
 
-    /*
-    @PostMapping("/edit/{idUsuario}")
-    public String edit(@PathVariable final Long idUsuario,
-                       @ModelAttribute("usuario") @Valid final UsuarioDTO usuarioDTO,
-                       @ModelAttribute("cliente") @Valid final ClienteDTO clienteDTO,
-                       @ModelAttribute("administrativo") @Valid final AdministrativoDTO administrativoDTO,
-                       @ModelAttribute("profesional") @Valid final ProfesionalDTO profesionalDTO,
+    @PostMapping("/edit/{idVisita}")
+    public String edit(@PathVariable final Long idVisita,
+                       @ModelAttribute("visita") @Valid final VisitaDTO visitaDTO,
 
                        final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         final UsuarioDTO currentUsuarioDTO = usuarioServicio.get(idUsuario);
@@ -110,21 +122,14 @@ public class VisitaController {
                 long idProfesional = usuarioServicio.findById(idUsuario).getUsuarioProfesionales().getIdProfesional();
                 profesionalServicio.update(idProfesional , profesionalDTO);
 
-                break;
-            case "Cliente":
-                clienteDTO.setUsuario(idUsuario);
-                long idCliente = usuarioServicio.findById(idUsuario).getUsuarioClientes().getIdCliente();
-                clienteServicio.update(idCliente , clienteDTO);
+        visitaServicio.update(idVisita, visitaDTO );
 
-                break;
-        }
-
-
-
-        redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("usuario.update.success"));
-        return "redirect:/usuarios";
+        redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("visita.update.success"));
+        return "redirect:/visitas";
     }
 
+
+/*
     @PostMapping("/delete/{idUsuario}")
     public String delete(@PathVariable final Long idUsuario,
                          final RedirectAttributes redirectAttributes) {
