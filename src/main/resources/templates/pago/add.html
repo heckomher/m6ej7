@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{pago.add.headline}" />
 </head>
 <body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 th:text="#{pago.add.headline}" class="flex-grow-1" />
+        <div>
+            <a th:href="@{/pagos}" th:text="#{pago.add.back}" class="btn btn-secondary" />
+        </div>
+    </div>
+    <div th:replace="~{fragments/forms::globalErrors('pago')}"></div>
+    <form th:action="${T(com.bootcamp.ejercicio7m6.util.WebUtils).getRequest().requestURI}" method="post">
+        <div th:replace="~{fragments/forms::inputRow(object='pago', field='monto')}"></div>
+        <div th:replace="~{fragments/forms::inputRow(object='pago', field='fechaPago', inputClass='js-datepicker')}"></div>
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">
+                <span th:text="#{pago.idCliente.label}">*</span>
+            </label>
+            <div class="col-md-10">
+                <select class="col-md-8 form-control" name="idCliente">
+                    <option value="" th:text="#{select.empty.label}" />
+                    <option th:each="cliente : ${clientes}" th:value="${cliente.usuario}" th:text="${cliente.rut + ':' + cliente.apellidos}" />
+                </select>
+            </div>
+        </div>
 
+        <input type="submit" th:value="#{pago.add.headline}" class="btn btn-primary mt-4" />
+    </form>
+</div>
 </body>
 </html>

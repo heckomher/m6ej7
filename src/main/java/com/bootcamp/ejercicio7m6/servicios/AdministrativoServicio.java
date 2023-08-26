@@ -69,7 +69,7 @@ public class AdministrativoServicio {
         administrativo.setExperienciaPrevia(administrativoDTO.getExperienciaPrevia());
 
         final Usuario usuario = administrativoDTO.getUsuario() == null ? null : IUsuarioRepositorio.findById(administrativoDTO.getUsuario())
-                .orElseThrow(() -> new NotFoundException("usuario not found"));
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
         administrativo.setUsuario(usuario);
         return administrativo;
     }
