@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -23,6 +24,20 @@ public class Checklist {
     @Column(nullable = false)
     private String descripcion;
 
+    @Column
+    private Integer estado;
+
+    @Column(nullable = false)
+    private LocalDate fechaCheck;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "visita_id")
+    private Visita visita;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="usuario_id")
+    private Usuario usuario;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private OffsetDateTime dateCreated;
@@ -31,42 +46,6 @@ public class Checklist {
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
 
-        // Constructors
-    public Checklist() {
-    }
+    // Constructors
 
-    public Checklist(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-}
-
-    public void setNumCapacitacion(Integer numCapacitacion) {
-    }
-
-    public void setCantidadAsistentes(Integer cantidadAsistentes) {
-    }
-
-    public Integer getNumCapacitacion() {
-        return null;
-    }
-
-    public Integer getCantidadAsistentes() {
-        return null;
-    }
 }
