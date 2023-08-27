@@ -45,6 +45,11 @@ public class SeguridadWebConfig {
                                 .requestMatchers(antMatcher("/contacto**")).hasRole("CLIENTE")
                                 .requestMatchers(antMatcher("/visita**")).hasRole("PROFESIONAL")
                                 .requestMatchers(antMatcher("/pago**")).hasRole("ADMINISTRATIVO")
+
+                                // api
+                                .requestMatchers(antMatcher("/api/clientes/**")).hasRole("ADMINISTRATIVO")
+                                .requestMatchers(antMatcher("/api/capacitaciones/**")).hasRole("CLIENTE")
+
                                 .requestMatchers(antMatcher("/checklist**")).hasRole("PROFESIONAL")
                                 .anyRequest().authenticated()
                 )

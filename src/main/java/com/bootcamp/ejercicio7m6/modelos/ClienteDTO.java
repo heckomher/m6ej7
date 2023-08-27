@@ -15,6 +15,9 @@ public class ClienteDTO {
     private String afp;
 
     @Size(max = 255)
+    private String nombre;
+
+    @Size(max = 255)
     private String apellidos;
 
     @Size(max = 255)

@@ -7,6 +7,8 @@ import com.bootcamp.ejercicio7m6.repos.IClienteRepositorio;
 import com.bootcamp.ejercicio7m6.repos.IUsuarioRepositorio;
 import com.bootcamp.ejercicio7m6.util.NotFoundException;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +59,9 @@ public class ClienteServicio {
     private ClienteDTO mapToDTO(final Cliente cliente, final ClienteDTO clienteDTO) {
         clienteDTO.setIdCliente(cliente.getIdCliente());
         clienteDTO.setAfp(cliente.getAfp());
+        Long idUsuario = cliente.getUsuario().getIdUsuario();
+
+        clienteDTO.setNombre(IUsuarioRepositorio.findById(idUsuario).get().getNombre());
         clienteDTO.setApellidos(cliente.getApellidos());
         clienteDTO.setComuna(cliente.getComuna());
         clienteDTO.setDireccion(cliente.getDireccion());

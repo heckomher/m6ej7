@@ -39,10 +39,10 @@ public class CapacitacionResource {
     }
 
     @PostMapping
-    public ResponseEntity<Integer> createCapacitacion(
+    public ResponseEntity<CapacitacionDTO> createCapacitacion(
             @RequestBody @Valid final CapacitacionDTO capacitacionDTO) {
         final Integer createdNumCapacitacion = capacitacionServicio.create(capacitacionDTO);
-        return new ResponseEntity<>(createdNumCapacitacion, HttpStatus.CREATED);
+        return new ResponseEntity<>(capacitacionServicio.get(createdNumCapacitacion), HttpStatus.CREATED);
     }
 
     @PutMapping("/{numCapacitacion}")
